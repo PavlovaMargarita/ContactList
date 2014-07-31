@@ -205,6 +205,52 @@
     </table>
     <br/>
 
+    <br/>
+    <br/>
+
+    <h2 align="center" class="textFont">Список присоединений </h2>
+
+    <div align="right">
+        <button class="standard" type="button"><a href="#addAccessionForm" id="addAccession">Добавить присоединение </a>
+        </button>
+        <button class="standard" type="button"><a href="#correctAccessionForm" id="correctAccession">Редактировать
+            присоединение </a></button>
+        <button class="attention" type="button"><a href="#"> Удалить</a></button>
+    </div>
+
+    <table class="simple-little-table" cellspacing='0' id="fileTable">
+        <tr>
+            <th></th>
+            <th>Имя файла присоединения</th>
+            <th>Дата загрузки</th>
+            <th>Комментарий</th>
+            <th></th>
+        </tr>
+        <!-- Table Header -->
+
+        <c:forEach var="file" items="${person.file}">
+            <tr>
+                <input type="hidden" name="fileName" value="${file.fileName}">
+                <input type="hidden" name="fileData" value="${file.data}">
+                <input type="hidden" name="commentFile" value="${file.comment}">
+                <td>
+
+                    <input type="checkbox" name="checkFile" value=""/>
+
+                </td>
+                <td>${file.fileName}</td>
+                <td>${file.data}</td>
+                <td>${file.comment}</td>
+                <td>
+                    <button class="standard" type="button"><span><a href="#correctAccessionForm"
+                                                                    onclick="openCorrectFile(this)">Редактировать
+                        контакт </a></span></button>
+                </td>
+            </tr>
+        </c:forEach>
+    </table>
+
+
     <p>
         <label>&nbsp;</label>
         <button type="submit" class="standard"> Сохранить</button>
@@ -276,20 +322,11 @@
 </div>
 
 
-<br/>
-<br/>
 
-<h2 align="center" class="textFont">Список присоединений </h2>
 
 <form>
 
-    <div align="right">
-        <button class="standard" type="button"><a href="#addAccessionForm" id="addAccession">Добавить присоединение </a>
-        </button>
-        <button class="standard" type="button"><a href="#correctAccessionForm" id="correctAccession">Редактировать
-            присоединение </a></button>
-        <button class="attention" type="button"><a href="#"> Удалить</a></button>
-    </div>
+
     <!-- Форма №1 для модального окна добавить -->
     <a href="#x" class="overlay" id="addAccessionForm"></a>
 
@@ -323,37 +360,7 @@
     </div>
 
 
-    <table class="simple-little-table" cellspacing='0' id="fileTable">
-        <tr>
-            <th></th>
-            <th>Имя файла присоединения</th>
-            <th>Дата загрузки</th>
-            <th>Комментарий</th>
-            <th></th>
-        </tr>
-        <!-- Table Header -->
 
-        <c:forEach var="file" items="${person.file}">
-            <tr>
-                <input type="hidden" name="fileName" value="${file.fileName}">
-                <input type="hidden" name="fileData" value="${file.data}">
-                <input type="hidden" name="commentFile" value="${file.comment}">
-                <td>
-
-                    <input type="checkbox" name="checkFile" value=""/>
-
-                </td>
-                <td>${file.fileName}</td>
-                <td>${file.data}</td>
-                <td>${file.comment}</td>
-                <td>
-                    <button class="standard" type="button"><span><a href="#correctAccessionForm"
-                                                                    onclick="openCorrectFile(this)">Редактировать
-                        контакт </a></span></button>
-                </td>
-            </tr>
-        </c:forEach>
-    </table>
     <!-- Table Row -->
 
     <!-- Форма №1 для модального окна фотки-->
