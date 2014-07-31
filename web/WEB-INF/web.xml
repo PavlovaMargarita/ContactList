@@ -17,10 +17,13 @@
         <servlet-name>DispatcherServlet</servlet-name>
         <url-pattern>/servlet</url-pattern>
     </servlet-mapping>
-    <!--<context-param>-->
-        <!--<param-name>tempfile.dir</param-name>-->
-        <!--<param-value>tmpfiles</param-value>-->
-    <!--</context-param>-->
+    <listener>
+        <listener-class>controller.FileLocationContextListener</listener-class>
+    </listener>
+    <context-param>
+        <param-name>tempfile.dir</param-name>
+        <param-value>tmpfiles</param-value>
+    </context-param>
 
 
     <!---->

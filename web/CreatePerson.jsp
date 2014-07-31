@@ -12,27 +12,27 @@
 <form class="blocks" action="${pageContext.request.contextPath}/servlet?method=formCorrectPerson" method="post">
     <div class="wrapper">
 
-        <input type="hidden" fileName="id" value="${requestScope.person.id}">
+        <input type="hidden" name="id" value="${requestScope.person.id}">
 			<span style="position:static;">
 				<a href="#selectImageForm" id="#selectImage">
                     <img src="image/silhouette.jpg"/>
                 </a>
 			<p>
                 <label class="foto">Фамилия</label>
-                <input type="text" class="text" fileName="surname" value="${requestScope.person.surname}"/>
+                <input type="text" class="text" name="surname" value="${requestScope.person.surname}"/>
             </p>
 			<p>
                 <label class="foto">Имя</label>
-                <input type="text" class="text" fileName="fileName" value="${requestScope.person.name}"/>
+                <input type="text" class="text" name="name" value="${requestScope.person.name}"/>
             </p>
 			<p>
                 <label class="foto"> Отчество</label>
-                <input type="text" class="text" fileName="patronymic" value="${requestScope.person.patronymic}"/>
+                <input type="text" class="text" name="patronymic" value="${requestScope.person.patronymic}"/>
             </p>
 
 			<p>
                 <label class="foto">Дата рождения</label>
-                <input type="text" class="text" fileName="dateOfBirth" value="${requestScope.person.dateOfBirth}"/>
+                <input type="text" class="text" name="dateOfBirth" value="${requestScope.person.dateOfBirth}"/>
             </p>
 			</span>
 
@@ -41,16 +41,16 @@
             <font color=#666>
                 <c:choose>
                     <c:when test="${requestScope.person.sex == 'f'}">
-                        <input type="radio" fileName="sex" value="f" checked/> Женский
-                        <input type="radio" fileName="sex" value="m" class="align"/> Мужской
+                        <input type="radio" name="sex" value="f" checked/> Женский
+                        <input type="radio" name="sex" value="m" class="align"/> Мужской
                     </c:when>
                     <c:when test="${requestScope.person.sex == 'm'}">
-                        <input type="radio" fileName="sex" value="f"/> Женский
-                        <input type="radio" fileName="sex" class="align" value="m" checked/> Мужской
+                        <input type="radio" name="sex" value="f"/> Женский
+                        <input type="radio" name="sex" class="align" value="m" checked/> Мужской
                     </c:when>
                     <c:when test="${requestScope.person == NULL}">
-                        <input type="radio" fileName="sex" value="f" checked/> Женский
-                        <input type="radio" fileName="sex" class="align" value="m"/> Мужской
+                        <input type="radio" name="sex" value="f" checked/> Женский
+                        <input type="radio" name="sex" class="align" value="m"/> Мужской
                     </c:when>
                 </c:choose>
 
@@ -59,13 +59,13 @@
 
         <p>
             <label>Гражданство</label>
-            <input type="text" class="text" fileName="nationality" value="${requestScope.person.nationality}"/>
+            <input type="text" class="text" name="nationality" value="${requestScope.person.nationality}"/>
         </p>
 
         <p>
             <label>Семейное положение</label>
             <%--<input type="text" class="text" fileName="maritalStatus" value="${requestScope.person.maritalStatus}"/>--%>
-            <select fileName="maritalStatus">
+            <select name="maritalStatus">
                 <c:forEach var="maritalStatus" items="${maritalStatuses}">
                     <c:choose>
                         <c:when test="${maritalStatus.maritalStatus == person.maritalStatus}">
@@ -82,18 +82,18 @@
 
         <p>
             <label>Web site</label>
-            <input type="text" class="text" fileName="webSite" value="${requestScope.person.webSite}"/>
+            <input type="text" class="text" name="webSite" value="${requestScope.person.webSite}"/>
         </p>
 
         <p>
             <label>E-mail:</label>
-            <input type="text" class="text" fileName="email" value="${requestScope.person.email}"/>
+            <input type="text" class="text" name="email" value="${requestScope.person.email}"/>
         </p>
 
         <p>
             <label>Место работы</label>
             <%--<input type="text" class="text" fileName="company" value="${requestScope.person.company}"/>--%>
-            <select fileName="company">
+            <select name="company">
                 <c:forEach var="company" items="${companies}">
                     <c:choose>
                         <c:when test="${company.company == person.company}">
@@ -116,7 +116,7 @@
         <p>
             <label class="live">Страна</label>
             <%--<input type="text" class="text" fileName="country" value="${requestScope.person.country}"/>--%>
-            <select fileName="country">
+            <select name="country">
                 <c:forEach var="country" items="${countries}">
                     <c:choose>
                         <c:when test="${country.country == person.country}">
@@ -133,27 +133,27 @@
 
         <p>
             <label class="live">Город</label>
-            <input type="text" class="text" fileName="city" value="${requestScope.person.city}"/>
+            <input type="text" class="text" name="city" value="${requestScope.person.city}"/>
         </p>
 
         <p>
             <label class="live">Улица</label>
-            <input type="text" class="text" fileName="street" value="${requestScope.person.street}"/>
+            <input type="text" class="text" name="street" value="${requestScope.person.street}"/>
         </p>
 
         <p>
             <label class="live">Дом</label>
-            <input type="text" class="text" fileName="home" value="${requestScope.person.home}"/>
+            <input type="text" class="text" name="home" value="${requestScope.person.home}"/>
         </p>
 
         <p>
             <label class="live">Квартира</label>
-            <input type="text" class="text" fileName="flat" value="${requestScope.person.flat}"/>
+            <input type="text" class="text" name="flat" value="${requestScope.person.flat}"/>
         </p>
 
         <p>
             <label class="live">Индекс</label>
-            <input type="text" class="text" fileName="index" value="${requestScope.person.index}"/>
+            <input type="text" class="text" name="index" value="${requestScope.person.index}"/>
         </p>
     </div>
     <br/>
@@ -179,16 +179,16 @@
         <!-- Table Header -->
         <c:forEach var="phone" items="${person.phone}">
             <tr>
-                <input type="hidden" fileName="idID" value="${phone.id}"/>
-                <input type="hidden" fileName="countryCodeID" value="${phone.countryCode}">
-                <input type="hidden" fileName="operatorCodeID" value="${phone.operatorCode}">
-                <input type="hidden" fileName="phoneNumberID" value="${phone.phoneNumber}">
-                <input type="hidden" fileName="phoneTypeID" value="${phone.phoneType}">
-                <input type="hidden" fileName="commentPhoneID" value="${phone.comment}">
-                <input type="hidden" fileName="idPersonID" value="${phone.idPerson}">
+                <input type="hidden" name="idID" value="${phone.id}"/>
+                <input type="hidden" name="countryCodeID" value="${phone.countryCode}">
+                <input type="hidden" name="operatorCodeID" value="${phone.operatorCode}">
+                <input type="hidden" name="phoneNumberID" value="${phone.phoneNumber}">
+                <input type="hidden" name="phoneTypeID" value="${phone.phoneType}">
+                <input type="hidden" name="commentPhoneID" value="${phone.comment}">
+                <input type="hidden" name="idPersonID" value="${phone.idPerson}">
                 <td>
 
-                    <input type="checkbox" fileName="checkPhone" value="${phone.id}"/>
+                    <input type="checkbox" name="checkPhone" value="${phone.id}"/>
 
                 </td>
                 <td>+${phone.countryCode}${phone.operatorCode}${phone.phoneNumber}</td>
@@ -248,26 +248,26 @@
 <div class="popup">
     <div>
         <label>Код страны</label>
-        <input type="text" id="countryCodeIDCorrect" fileName="countryCode" value=""/>
+        <input type="text" id="countryCodeIDCorrect" name="countryCode" value=""/>
     </div>
     <div>
         <label>Код оператора</label>
-        <input type="text" id="operatorCodeIDCorrect" fileName="operatorCode" value=""/>
+        <input type="text" id="operatorCodeIDCorrect" name="operatorCode" value=""/>
     </div>
     <div>
         <label>Телефонный номер</label>
-        <input type="text" id="phoneNumberIDCorrect" fileName="phoneNumber" value=""/>
+        <input type="text" id="phoneNumberIDCorrect" name="phoneNumber" value=""/>
     </div>
     <div>
         <label>Тип номера</label>
-        <input type="text" id="phoneTypeIDCorrect" fileName="phoneType" value=""/>
+        <input type="text" id="phoneTypeIDCorrect" name="phoneType" value=""/>
     </div>
     <div>
         <label>Комментарий</label>
-        <input type="text" id="commentPhoneIDCorrect" fileName="comment" value=""/>
+        <input type="text" id="commentPhoneIDCorrect" name="comment" value=""/>
     </div>
-    <input type="hidden" id="idIDCorrect" fileName="id" value=""/>
-    <input type="hidden" id="idPersonIDCorrect" fileName="idPerson" value=""/>
+    <input type="hidden" id="idIDCorrect" name="id" value=""/>
+    <input type="hidden" id="idPersonIDCorrect" name="idPerson" value=""/>
     <input type="hidden" id="rowCountPhoneCorrect" value=""/>
     <button class="btn" onclick="saveCorrectPhone()"><a href="#close">Сохранить </a></button>
 
@@ -335,12 +335,12 @@
 
         <c:forEach var="file" items="${person.file}">
             <tr>
-                <input type="hidden" fileName="fileName" value="${file.fileName}">
-                <input type="hidden" fileName="fileData" value="${file.data}">
-                <input type="hidden" fileName="commentFile" value="${file.comment}">
+                <input type="hidden" name="fileName" value="${file.fileName}">
+                <input type="hidden" name="fileData" value="${file.data}">
+                <input type="hidden" name="commentFile" value="${file.comment}">
                 <td>
 
-                    <input type="checkbox" fileName="checkFile" value=""/>
+                    <input type="checkbox" name="checkFile" value=""/>
 
                 </td>
                 <td>${file.fileName}</td>
@@ -362,7 +362,7 @@
     <div class="popup">
         <form enctype="multipart/form-data" method="post">
             <p>
-                <input type="file" fileName="image" multiple accept="image/*,image/jpeg">
+                <input type="file" name="image" multiple accept="image/*,image/jpeg">
             </p>
             <input type="submit" class="btn" value="Загрузить">
         </form>

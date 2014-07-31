@@ -19,37 +19,37 @@
     <form id="form" class="blocks" action="${pageContext.request.contextPath}/servlet?method=formSearchPerson" method="post">
         <p>
             <label>Фамилия</label>
-            <input type="text" class="text" fileName="surname" />
+            <input type="text" class="text" name="surname" />
         </p>
         <p>
             <label>Имя</label>
-            <input type="text" class="text" fileName="fileName" />
+            <input type="text" class="text" name="fileName" />
         </p>
         <p>
             <label>Отчество</label>
-            <input type="text" class="text" fileName="patronymic" />
+            <input type="text" class="text" name="patronymic" />
         </p>
 
         <p>
             <label>Возраст</label>
-            <input type="text" class="text" fileName="age" />
-            <input type="checkbox" fileName="ageRange" value="moreThan"> и старше
-            <input type="checkbox" fileName="ageRange" value="lessThan"> и младше
+            <input type="text" class="text" name="age" />
+            <input type="checkbox" name="ageRange" value="moreThan"> и старше
+            <input type="checkbox" name="ageRange" value="lessThan"> и младше
         </p>
         <p>
             <label>Пол</label>
             <font color=#666>
-                <input type="radio" fileName="sex" value="f" checked/> Женский
-                <input type="radio" fileName="sex" value="m"/> Мужской
+                <input type="radio" name="sex" value="f" checked/> Женский
+                <input type="radio" name="sex" value="m"/> Мужской
             </font>
         </p>
         <p>
             <label>Гражданство</label>
-            <input type="text" class="text" fileName="nationality" />
+            <input type="text" class="text" name="nationality" />
         </p>
         <p>
             <label>Семейное положение</label>
-            <select fileName="maritalStatus">
+            <select name="maritalStatus">
                 <option value=""></option>
                 <c:forEach var="maritalStatus" items="${maritalStatuses}">
                     <option value=${maritalStatus.id}>${maritalStatus.maritalStatus}</option>
@@ -60,7 +60,7 @@
         <p>
             <label>Страна</label>
             <%--<input type="text" class="text" fileName="country" />--%>
-            <select fileName="country">
+            <select name="country">
                 <option value=""></option>
                 <c:forEach var="country" items="${countries}">
                     <option value=${country.id}>${country.country}</option>
@@ -72,24 +72,24 @@
 
         <p>
             <label>Город</label>
-            <input type="text" class="text" fileName="city" />
+            <input type="text" class="text" name="city" />
         </p>
         <p>
             <label >Улица</label>
-            <input type="text" class="text" fileName="street" />
+            <input type="text" class="text" name="street" />
         </p>
         <p>
             <label >Дом</label>
-            <input type="text" class="text" fileName="home" />
+            <input type="text" class="text" name="home" />
         </p>
         <p>
             <label >Квартира</label>
-            <input type="text" class="text" fileName="flat" />
+            <input type="text" class="text" name="flat" />
         </p>
 
         <p>
             <label >Индекс</label>
-            <input type="text" class="text" fileName="index" />
+            <input type="text" class="text" name="index" />
         </p>
 
         <p>

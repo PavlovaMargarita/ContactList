@@ -17,9 +17,9 @@
 <body>
 <form method="post" action="${pageContext.request.contextPath}/servlet">
     <div align="right">
-        <button type="submit" class="standard" fileName="method" value="sendEmail">Послать e-mail</button>
-        <button type="submit" class="attention" fileName="method" value="deletePerson"> Удалить</button>
-        <button type="reset" class="attention" fileName="method" value="reset"> Отмена </button>
+        <button type="submit" class="standard" name="method" value="sendEmail">Послать e-mail</button>
+        <button type="submit" class="attention" name="method" value="deletePerson"> Удалить</button>
+        <button type="reset" class="attention" name="method" value="reset"> Отмена </button>
     </div>
 
 
@@ -39,7 +39,7 @@
             <tr>
                 <th>
                     <div class="squaredThree">
-                        <input type="checkbox"  fileName="checkPerson" value=${person.id}>
+                        <input type="checkbox"  name="checkPerson" value=${person.id}>
                         <%--<label for="squaredThree"></label>--%>
                     </div>
                 </th>
