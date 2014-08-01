@@ -5,6 +5,7 @@ package model;
  */
 public class FilePerson {
     private int id;
+    private String file;
     private String fileName;
     private String data;
     private String comment;
@@ -16,14 +17,6 @@ public class FilePerson {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public String getFileName() {
-        return fileName;
-    }
-
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
     }
 
     public String getData() {
@@ -48,5 +41,21 @@ public class FilePerson {
 
     public void setIdPerson(int idPerson) {
         this.idPerson = idPerson;
+    }
+
+    public String getFile() {
+        return file;
+    }
+
+    public void setFile(String file) {
+        this.file = file;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
     }
 }

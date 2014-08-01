@@ -7,7 +7,6 @@ import param.RequestParams;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +14,6 @@ import java.util.List;
  * Created by Margarita on 23.07.2014.
  */
 public class FormCorrectPersonCommand implements Command {
-
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         Person person = new Person();
@@ -67,18 +65,6 @@ public class FormCorrectPersonCommand implements Command {
         }
         person.setPhone(phones);
         PersonDAOImpl.getInstance().correctPerson(person);
-
-        String[] fileNames = request.getParameterValues("fileName");
-        String fileName = fileNames[0];
-        if (fileName == null || fileName.equals("")) {
-            System.out.println("File Name can't be null or empty");
-        }
-        File file = new File(request.getSession().getServletContext().getAttribute("FILES_DIR") + File.separator + fileName);
-        if (!file.exists()) {
-            System.out.println("File doesn't exists on server.");
-        }
-        System.out.println("File location on server::" + file.getAbsolutePath());
-
         List persons = PersonDAOImpl.getInstance().getPersons();
         request.setAttribute("persons", persons);
         return RequestParams.PERSON_LIST_JSP;

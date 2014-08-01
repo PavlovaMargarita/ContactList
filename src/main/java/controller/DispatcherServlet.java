@@ -1,8 +1,6 @@
 package controller;
 
 import controller.command.*;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import param.RequestParams;
 
 import javax.servlet.ServletConfig;
@@ -10,7 +8,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
@@ -21,14 +18,9 @@ import java.util.Map;
  */
 public class DispatcherServlet extends HttpServlet {
     private Map<String, Command> commandMap;
-    private static final long serialVersionUID = 1L;
-    private ServletFileUpload uploader = null;
+
     @Override
     public void init(ServletConfig config){
-        DiskFileItemFactory fileFactory = new DiskFileItemFactory();
-        File filesDir = (File) config.getServletContext().getAttribute("FILES_DIR_FILE");
-        fileFactory.setRepository(filesDir);
-        this.uploader = new ServletFileUpload(fileFactory);
 
         commandMap = new HashMap<String,Command>();
         commandMap.put(RequestParams.CORRECT_PERSON, new CorrectPersonCommand());
