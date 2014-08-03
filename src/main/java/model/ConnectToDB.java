@@ -10,6 +10,7 @@ import param.RequestParams;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringTokenizer;
 
 /**
  * Created by Margarita on 21.07.2014.
@@ -205,7 +206,6 @@ public class ConnectToDB {
             Connection connect = DriverManager.getConnection(RequestParams.bundle.getString("urlDB"),
                     RequestParams.bundle.getString("userDB"), RequestParams.bundle.getString("passwordDB"));
             PreparedStatement statement = connect.prepareStatement(searchPerson);
-            statement.setInt(1, age);
             statement.setString(1, "%" + surname + "%");
             statement.setString(2, "%" + name + "%");
             statement.setString(3, "%" + patronymic + "%");
@@ -271,7 +271,15 @@ public class ConnectToDB {
                 person.setSurname(resultSet.getString(RequestParams.SURNAME));
                 person.setName(resultSet.getString(RequestParams.NAME));
                 person.setPatronymic(resultSet.getString(RequestParams.PATRONYMIC));
-                person.setDateOfBirth(resultSet.getString(RequestParams.DATE_OF_BIRTH));
+                StringTokenizer st = new StringTokenizer(resultSet.getString(RequestParams.DATE_OF_BIRTH), "-");
+                StringBuilder dateOfBirth = new StringBuilder();
+                while(st.hasMoreTokens()){
+                    dateOfBirth.insert(0,st.nextToken());
+                    if(st.hasMoreTokens()){
+                        dateOfBirth.insert(0, "-");
+                    }
+                }
+                person.setDateOfBirth(dateOfBirth.toString());
                 person.setSex(resultSet.getString(RequestParams.SEX));
                 person.setNationality(resultSet.getString(RequestParams.NATIONALITY));
                 person.setMaritalStatus(resultSet.getString(RequestParams.MARITAL_STATUS));

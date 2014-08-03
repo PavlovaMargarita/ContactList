@@ -9,7 +9,7 @@
     </title>
 </head>
 <body>
-<form class="blocks" action="${pageContext.request.contextPath}/servlet?method=formCorrectPerson" method="post">
+<form class="blocks" action="${pageContext.request.contextPath}/servlet?method=formCorrectPerson" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
 <div class="wrapper">
 
     <input type="hidden" name="id" value="${person.id}"/>
@@ -19,20 +19,20 @@
                 </a>
 			<p>
                 <label class="foto">Фамилия</label>
-                <input type="text" class="text" name="surname" value="${requestScope.person.surname}"/>
+                <input type="text" class="text" name="surname" id="surname" value="${requestScope.person.surname}"/>
             </p>
 			<p>
                 <label class="foto">Имя</label>
-                <input type="text" class="text" name="name" value="${requestScope.person.name}"/>
+                <input type="text" class="text" name="name" id="name"  value="${requestScope.person.name}"/>
             </p>
 			<p>
                 <label class="foto"> Отчество</label>
-                <input type="text" class="text" name="patronymic" value="${requestScope.person.patronymic}"/>
+                <input type="text" class="text" name="patronymic" id="patronymic" value="${requestScope.person.patronymic}"/>
             </p>
 
 			<p>
                 <label class="foto">Дата рождения</label>
-                <input type="text" class="text" name="dateOfBirth" value="${requestScope.person.dateOfBirth}"/>
+                <input type="text" class="text" name="dateOfBirth" id="dateOfBirth" value="${requestScope.person.dateOfBirth}"/>
             </p>
 			</span>
 
@@ -59,7 +59,7 @@
 
     <p>
         <label>Гражданство</label>
-        <input type="text" class="text" name="nationality" value="${requestScope.person.nationality}"/>
+        <input type="text" class="text" name="nationality" id="nationality" value="${requestScope.person.nationality}"/>
     </p>
 
     <p>
@@ -82,12 +82,12 @@
 
     <p>
         <label>Web site</label>
-        <input type="text" class="text" name="webSite" value="${requestScope.person.webSite}"/>
+        <input type="text" class="text" name="webSite" id="webSite" value="${requestScope.person.webSite}"/>
     </p>
 
     <p>
         <label>E-mail:</label>
-        <input type="text" class="text" name="email" value="${requestScope.person.email}"/>
+        <input type="text" class="text" name="email" id="email" value="${requestScope.person.email}"/>
     </p>
 
     <p>
@@ -133,27 +133,27 @@
 
     <p>
         <label class="live">Город</label>
-        <input type="text" class="text" name="city" value="${requestScope.person.city}"/>
+        <input type="text" class="text" name="city" id="city" value="${requestScope.person.city}"/>
     </p>
 
     <p>
         <label class="live">Улица</label>
-        <input type="text" class="text" name="street" value="${requestScope.person.street}"/>
+        <input type="text" class="text" name="street" id="street" value="${requestScope.person.street}"/>
     </p>
 
     <p>
         <label class="live">Дом</label>
-        <input type="text" class="text" name="home" value="${requestScope.person.home}"/>
+        <input type="text" class="text" name="home" id="home" value="${requestScope.person.home}"/>
     </p>
 
     <p>
         <label class="live">Квартира</label>
-        <input type="text" class="text" name="flat" value="${requestScope.person.flat}"/>
+        <input type="text" class="text" name="flat" id="flat" value="${requestScope.person.flat}"/>
     </p>
 
     <p>
         <label class="live">Индекс</label>
-        <input type="text" class="text" name="index" value="${requestScope.person.index}"/>
+        <input type="text" class="text" name="index" id="index" value="${requestScope.person.index}"/>
     </p>
 </div>
 <br/>
@@ -250,7 +250,7 @@
 
 <p>
     <label>&nbsp;</label>
-    <button type="submit" class="standard"> Сохранить</button>
+    <button type="submit" id="save" class="standard"> Сохранить</button>
 </p>
 </form>
 <!-- Форма для модального окна добавить контакт -->
@@ -278,7 +278,7 @@
         <input type="text" id="commentPhoneIDAdd" value=""/>
     </div>
 
-    <button class="btn" onclick="saveAddPhone()"><a href="#close">Сохранить </a></button>
+    <button class="btn" id="saveAddPhone"><a href="#close">Сохранить </a></button>
     <a class="close" href="#close"></a>
 </div>
 
@@ -308,7 +308,7 @@
         <input type="text" id="commentPhoneIDCorrect" name="comment" value=""/>
     </div>
     <input type="hidden" id="rowCountPhoneCorrect" value=""/>
-    <button class="btn" onclick="saveCorrectPhone()"><a href="#close">Сохранить </a></button>
+    <button class="btn" id="saveCorrectPhone"><a href="#close">Сохранить </a></button>
 
     <%--<button class="btn"  onclick="saveCorrectPhone()"> Сохранить </button>--%>
     <a class="close" href="#close"></a>

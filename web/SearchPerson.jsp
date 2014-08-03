@@ -23,7 +23,7 @@
         </p>
         <p>
             <label>Имя</label>
-            <input type="text" class="text" name="fileName" />
+            <input type="text" class="text" name="name" />
         </p>
         <p>
             <label>Отчество</label>
