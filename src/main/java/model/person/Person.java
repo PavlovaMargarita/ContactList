@@ -24,6 +24,7 @@ public class Person {
     private String index;
     private List phone;
     private List file;
+    private String photoPath;
 
 
 
@@ -179,5 +180,13 @@ public class Person {
 
     public void setFile(List file) {
         this.file = file;
+    }
+
+    public String getPhotoPath() {
+        return photoPath;
+    }
+
+    public void setPhotoPath(String photoPath) {
+        this.photoPath = photoPath;
     }
 }

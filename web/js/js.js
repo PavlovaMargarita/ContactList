@@ -157,43 +157,6 @@ document.getElementById('addFileButton').onclick = function() {
 
 
     document.getElementById(idFile).click();
-
-//    var elementFileData = document.createElement("input");
-//    elementFileData.type = "hidden";
-//    elementFileData.name = "fileData";
-//    elementFileData.value = yyyy+"-"+mm+"-"+dd;
-//    row.appendChild(elementFileData);
-//
-//    var elementComment = document.createElement("input");
-//    elementComment.type = "hidden";
-//    elementComment.name = "commentFile";
-//    elementComment.value = comment;
-//    row.appendChild(elementComment);
-//
-//    var cellCheckBox = row.insertCell(0);
-//    var elementCheckBox = document.createElement("input");
-//    elementCheckBox.type = "checkBox";
-//    elementCheckBox.name = "checkFile";
-//    elementCheckBox.value = "";
-//    cellCheckBox.appendChild(elementCheckBox);
-//
-//    var cellFileName = row.insertCell(1);
-//    cellFileName.innerHTML = fileName;
-//
-//    var cellFileData = row.insertCell(2);
-//    cellFileData.innerHTML = dd+"-"+mm+"-"+yyyy;
-//
-//    var cellComment = row.insertCell(3);
-//    cellComment.innerHTML = comment;
-//
-//    var cellButton = row.insertCell(4);
-//    var elementButton = document.createElement("button");
-//    elementButton.className = "standard";
-//    elementButton.type = "button";
-//    var elementSpan = document.createElement("span");
-//    elementSpan.innerHTML = '<a href="#correctAccessionFormm" onclick="openCorrectPhone(this)"> Редактировать контакт </a>';
-//    elementButton.appendChild(elementSpan);
-//    cellButton.appendChild(elementButton);
 }
 
 document.getElementById('addFile').onclick = function(){
@@ -208,12 +171,6 @@ document.getElementById('addFile').onclick = function(){
     var comment = document.getElementById('commentFileIDAdd').value.trim();
     document.getElementById('commentFileIDAdd').value = "";
 
-    var elementIdFile = document.createElement("input");
-    elementIdFile.type = "hidden";
-    elementIdFile.name = "idFile";
-    elementIdFile.value = "0";
-    row.appendChild(elementIdFile);
-
     var elementFileName = document.createElement("input");
     elementFileName.type = "hidden";
     elementFileName.name = "fileName";
@@ -224,7 +181,7 @@ document.getElementById('addFile').onclick = function(){
 
     var elementFileData = document.createElement("input");
     elementFileData.type = "hidden";
-    elementFileData.name = "fileData";
+    elementFileData.name = "fileDate";
     elementFileData.value = yyyy+"-"+mm+"-"+dd;
     row.appendChild(elementFileData);
 
@@ -303,37 +260,37 @@ document.getElementById('deleteFile').onclick = function() {
     }
 }
 
-document.getElementById('loadFotoButton').onclick = function(){
-    var fileName = document.getElementById('loadFoto').value;
-    if(fileName == ""){
-        return false;
-    }
-
-}
-
-var resultFoto;
-function onFileSelected(event) {
-    var selectedFile = event.target.files[0];
-    var reader = new FileReader();
-
+//document.getElementById('loadFotoButton').onclick = function(){
+//    var fileName = document.getElementById('loadFoto').value;
+//    if(fileName == ""){
+//        return false;
+//    }
+//
+//}
+//
+//var resultFoto;
+//function onFileSelected(event) {
+//    var selectedFile = event.target.files[0];
+//    var reader = new FileReader();
+//
+////    var imgtag = document.getElementById("fotoPerson");
+////    imgtag.title = selectedFile.name;
+//
+//    reader.onload = function(event) {
+////        imgtag.src = event.target.result;
+//        resultFoto = event.target.result;
+//    };
+//
+//    reader.readAsDataURL(selectedFile);
+//}
+//
+//document.getElementById('loadFotoButton').onclick = function(){
+//    if(resultFoto == "" || resultFoto == undefined){
+//        return false;
+//    }
 //    var imgtag = document.getElementById("fotoPerson");
-//    imgtag.title = selectedFile.name;
-
-    reader.onload = function(event) {
-//        imgtag.src = event.target.result;
-        resultFoto = event.target.result;
-    };
-
-    reader.readAsDataURL(selectedFile);
-}
-
-document.getElementById('loadFotoButton').onclick = function(){
-    if(resultFoto == "" || resultFoto == undefined){
-        return false;
-    }
-    var imgtag = document.getElementById("fotoPerson");
-    imgtag.src = resultFoto;
-}
+//    imgtag.src = resultFoto;
+//}
 
 document.getElementById('save').onclick = function(){
     var regEmail= /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -511,3 +468,29 @@ document.getElementById('phoneNumberIDCorrect').onkeyup = function(){
     }
 }
 
+document.getElementById('selectPhotoButton').onclick = function(){
+    document.getElementById('photoFileID').click();
+}
+var resultPhoto;
+function onFileSelected(event) {
+    var selectedFile = event.target.files[0];
+    var reader = new FileReader();
+
+//    var imgtag = document.getElementById("fotoPerson");
+//    imgtag.title = selectedFile.name;
+
+    reader.onload = function(event) {
+//        imgtag.src = event.target.result;
+        resultPhoto = event.target.result;
+    };
+
+    reader.readAsDataURL(selectedFile);
+}
+
+document.getElementById('loadPhotoButton').onclick = function(){
+    if(resultPhoto == "" || resultPhoto == undefined){
+        return false;
+    }
+    var imgtag = document.getElementById("photoPerson");
+    imgtag.src = resultPhoto;
+}

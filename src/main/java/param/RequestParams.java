@@ -27,6 +27,7 @@ public class RequestParams {
     public static final String HOME = "home";
     public static final String FLAT = "flat";
     public static final String INDEX = "index";
+    public static final String PHOTO_PATH = "photoPath";
     public static final String CITY_INDEX = "cityIndex";
     public static final String PERSON_LIST_JSP = "PersonList.jsp";
     public static final String CREATE_PERSON_JSP = "CreatePerson.jsp";
@@ -48,18 +49,14 @@ public class RequestParams {
     public static final String PHONE_TYPE = "phoneType";
     public static final String COMMENT = "comment";
     public static final String ID_PERSON = "idPerson";
-    public static final String FORM_CORRECT_PHONE = "formCorrectPhone";
-    public static final String FORM_ADD_PHONE = "formAddPhone";
-    public static final String DELETE_PHONE = "deletePhone";
-    public static final String CHECK_PHONE = "checkPhone";
-    public static final String ID_PERSON_ID = "idPersonID";
     public static final String COUNTY_CODE_ID = "countryCodeID";
     public static final String OPERATOR_CODE_ID = "operatorCodeID";
     public static final String PHONE_NUMBER_ID = "phoneNumberID";
     public static final String PHONE_TYPE_ID = "phoneTypeID";
     public static final String COMMENT_PHONE_ID = "commentPhoneID";
-    public static final String ID_ID = "idID";
-
-
+    public static final String FILE_HASH = "fileHash";
+    public static final String FILE_NAME = "fileName";
+    public static final String FILE_DATE = "fileDate";
+    public static final String COMMENT_FILE = "commentFile";
 
 }

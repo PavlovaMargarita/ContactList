@@ -29,11 +29,11 @@ public class ConnectToDB {
         Person person = new Person();
         String selectPerson = "select persons.id, persons.surname,persons.name, persons.patronymic, persons.dateOfBirth, " +
                 "persons.sex, persons.nationality, maritalstatus.maritalStatus,  persons.webSite, persons.email," +
-                "company.company, country.country, persons.city, persons.street, persons.home, persons.flat, persons.cityIndex " +
+                "company.company, country.country, persons.city, persons.street, persons.home, persons.flat, persons.cityIndex, persons.photoPath " +
                 "from persons join maritalstatus on persons.maritalStatus = maritalstatus.id " +
                 "join company on persons.company = company.id join country on persons.country = country.id where persons.id = ?";
-        List phones = new ArrayList<Phone>();
         String selectPhone = "select * from phone where idPerson = ?";
+        String selectFile = "select * from file where idPerson = ?";
         try {
             Class.forName(RequestParams.bundle.getString("urlDriver"));
             Connection connect = DriverManager.getConnection(RequestParams.bundle.getString("urlDB"),
@@ -44,6 +44,9 @@ public class ConnectToDB {
             List persons = new ArrayList<Person>();
             setPersonData(persons, resultPerson);
             person = (Person) persons.get(0);
+            resultPerson.close();
+
+            List phones = new ArrayList<Phone>();
             statement = connect.prepareStatement(selectPhone);
             statement.setInt(1, id);
             ResultSet resultPhone = statement.executeQuery();
@@ -59,6 +62,23 @@ public class ConnectToDB {
                 phones.add(phone);
             }
             person.setPhone(phones);
+            resultPhone.close();
+
+            List files = new ArrayList<FilePerson>();
+            statement = connect.prepareStatement(selectFile);
+            statement.setInt(1, id);
+            ResultSet resultFile = statement.executeQuery();
+            while (resultFile.next()) {
+                FilePerson filePerson = new FilePerson();
+                filePerson.setFileHash(resultFile.getString(RequestParams.FILE_HASH));
+                filePerson.setFileName(resultFile.getString(RequestParams.FILE_NAME));
+                filePerson.setFileDate(resultFile.getString(RequestParams.FILE_DATE));
+                filePerson.setComment(resultFile.getString(RequestParams.COMMENT));
+                filePerson.setIdPerson(resultFile.getInt(RequestParams.ID_PERSON));
+                files.add(filePerson);
+            }
+            person.setFile(files);
+            resultFile.close();
             statement.close();
             connect.close();
 
@@ -75,7 +95,7 @@ public class ConnectToDB {
 //        String selectPerson = "select * from persons";
         String selectPerson = "select persons.id, persons.surname,persons.name, persons.patronymic, persons.dateOfBirth, " +
                 "persons.sex, persons.nationality, maritalstatus.maritalStatus,  persons.webSite, persons.email," +
-                "company.company, country.country, persons.city, persons.street, persons.home, persons.flat, persons.cityIndex " +
+                "company.company, country.country, persons.city, persons.street, persons.home, persons.flat, persons.cityIndex, persons.photoPath " +
                 "from persons join maritalstatus on persons.maritalStatus = maritalstatus.id " +
                 "join company on persons.company = company.id join country on persons.country = country.id";
         try {
@@ -85,6 +105,7 @@ public class ConnectToDB {
             Statement statement = connect.createStatement();
             ResultSet resultPerson = statement.executeQuery(new String(selectPerson));
             setPersonData(persons, resultPerson);
+            resultPerson.close();
             statement.close();
             connect.close();
 
@@ -98,12 +119,12 @@ public class ConnectToDB {
 
     public void correctPerson(Person person, String task) {
         String insertPerson = "insert into persons(surname, name, patronymic, dateOfBirth, sex, nationality," +
-                "maritalStatus, webSite, email, company, country, city, street, home, flat, cityIndex) " +
+                "maritalStatus, webSite, email, company, country, city, street, home, flat, cityIndex, photoPath) " +
                 "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         String correctPerson = "update persons set surname = ?, name = ?, patronymic = ?," +
                 "dateOfBirth = ?, sex = ?, nationality = ?, maritalStatus = ?," +
                 "webSite = ?, email = ?, company = ?, country = ?, city = ?, street = ?," +
-                "home = ?, flat = ?, cityindex = ? where id = ?";
+                "home = ?, flat = ?, cityindex = ?, photoPath = ? where id = ?";
         try {
             Class.forName(RequestParams.bundle.getString("urlDriver"));
             Connection connect = DriverManager.getConnection(RequestParams.bundle.getString("urlDB"),
@@ -113,12 +134,21 @@ public class ConnectToDB {
                 statement = connect.prepareStatement(insertPerson);
             } else {
                 statement = connect.prepareStatement(correctPerson);
-                statement.setInt(17, person.getId());
+                statement.setInt(18, person.getId());
             }
+
             statement.setString(1, person.getSurname());
             statement.setString(2, person.getName());
             statement.setString(3, person.getPatronymic());
-            statement.setString(4, person.getDateOfBirth());
+            StringTokenizer st = new StringTokenizer(person.getDateOfBirth(), "-");
+            StringBuilder dateOfBirth = new StringBuilder();
+            while(st.hasMoreTokens()){
+                dateOfBirth.insert(0,st.nextToken());
+                if(st.hasMoreTokens()){
+                    dateOfBirth.insert(0, "-");
+                }
+            }
+            statement.setString(4, dateOfBirth.toString());
             statement.setString(5, person.getSex());
             statement.setString(6, person.getNationality());
             statement.setString(7, person.getMaritalStatus());
@@ -131,6 +161,7 @@ public class ConnectToDB {
             statement.setInt(14, person.getHome());
             statement.setInt(15, person.getFlat());
             statement.setString(16, person.getIndex());
+            statement.setString(17, person.getPhotoPath());
             statement.executeUpdate();
             int id = 0;
             if (task.equals(RequestParams.CREATE)) {
@@ -153,8 +184,6 @@ public class ConnectToDB {
                     "comment, idPerson) VALUES (?,?,?,?,?,?)";
             statement = connect.prepareStatement(insertPhone);
             for (Phone phone : phones) {
-
-
                 statement.setInt(1, phone.getCountryCode());
                 statement.setInt(2, phone.getOperatorCode());
                 statement.setInt(3, phone.getPhoneNumber());
@@ -164,6 +193,24 @@ public class ConnectToDB {
                 statement.executeUpdate();
             }
 
+            List<FilePerson> files = person.getFile();
+            for(FilePerson file: files){
+                file.setIdPerson(id);
+            }
+            String deleteFile = "delete from file where idPerson = ?";
+            statement = connect.prepareStatement(deleteFile);
+            statement.setInt(1, id);
+            statement.executeUpdate();
+            String insertFile = "insert into file(fileHash, fileName, fileDate, comment, idPerson) VALUES (?,?,?,?,?)";
+            statement = connect.prepareStatement(insertFile);
+            for(FilePerson file: files){
+                statement.setString(1, file.getFileHash());
+                statement.setString(2, file.getFileName());
+                statement.setString(3, file.getFileDate());
+                statement.setString(4, file.getComment());
+                statement.setInt(5, id);
+                statement.executeUpdate();
+            }
 
             statement.close();
             connect.close();
@@ -242,16 +289,24 @@ public class ConnectToDB {
 
     public void deletePerson(List<Integer> id) {
         String deletePerson = "delete from persons where persons.id = ?";
+        String deletePhone = "delete from phone where idPerson = ?";
+        String deleteFile = "delete from file where idPerson = ?";
         try {
             Class.forName(RequestParams.bundle.getString("urlDriver"));
             Connection connect = DriverManager.getConnection(RequestParams.bundle.getString("urlDB"),
                     RequestParams.bundle.getString("userDB"), RequestParams.bundle.getString("passwordDB"));
-            PreparedStatement statement = connect.prepareStatement(deletePerson);
+            PreparedStatement statement = null;
             for (int temp : id) {
+                statement = connect.prepareStatement(deletePerson);
+                statement.setInt(1, temp);
+                statement.executeUpdate();
+                statement = connect.prepareStatement(deletePhone);
+                statement.setInt(1, temp);
+                statement.executeUpdate();
+                statement = connect.prepareStatement(deleteFile);
                 statement.setInt(1, temp);
                 statement.executeUpdate();
             }
-
             statement.close();
             connect.close();
 
@@ -292,6 +347,7 @@ public class ConnectToDB {
                 person.setHome(resultSet.getInt(RequestParams.HOME));
                 person.setFlat(resultSet.getInt(RequestParams.FLAT));
                 person.setIndex(resultSet.getString(RequestParams.CITY_INDEX));
+                person.setPhotoPath(resultSet.getString(RequestParams.PHOTO_PATH));
                 persons.add(person);
             }
         } catch (SQLException e) {

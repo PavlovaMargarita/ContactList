@@ -9,30 +9,35 @@
     </title>
 </head>
 <body>
-<form class="blocks" action="${pageContext.request.contextPath}/servlet?method=formCorrectPerson" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
+<form class="blocks" action="${pageContext.request.contextPath}/servlet?method=formCorrectPerson" method="post"
+      enctype="multipart/form-data">
 <div class="wrapper">
 
     <input type="hidden" name="id" value="${person.id}"/>
+    <input type="file" name="photoFile" id="photoFileID" style="display: none" multiple accept="image/*,image/jpeg"
+           onchange="onFileSelected(event)">
 			<span style="position:static;">
 				<a href="#selectImageForm" id="#selectImage">
-                    <img id="fotoPerson" src="image/silhouette.jpg"/>
+                    <img id="photoPerson" src="image/silhouette.jpg"/>
                 </a>
 			<p>
-                <label class="foto">Фамилия</label>
+                <label class="photo">Фамилия</label>
                 <input type="text" class="text" name="surname" id="surname" value="${requestScope.person.surname}"/>
             </p>
 			<p>
-                <label class="foto">Имя</label>
-                <input type="text" class="text" name="name" id="name"  value="${requestScope.person.name}"/>
+                <label class="photo">Имя</label>
+                <input type="text" class="text" name="name" id="name" value="${requestScope.person.name}"/>
             </p>
 			<p>
-                <label class="foto"> Отчество</label>
-                <input type="text" class="text" name="patronymic" id="patronymic" value="${requestScope.person.patronymic}"/>
+                <label class="photo"> Отчество</label>
+                <input type="text" class="text" name="patronymic" id="patronymic"
+                       value="${requestScope.person.patronymic}"/>
             </p>
 
 			<p>
-                <label class="foto">Дата рождения</label>
-                <input type="text" class="text" name="dateOfBirth" id="dateOfBirth" value="${requestScope.person.dateOfBirth}"/>
+                <label class="photo">Дата рождения</label>
+                <input type="text" class="text" name="dateOfBirth" id="dateOfBirth"
+                       value="${requestScope.person.dateOfBirth}"/>
             </p>
 			</span>
 
@@ -226,9 +231,9 @@
 
     <c:forEach var="file" items="${person.file}">
         <tr>
-            <input type="hidden" name="idFile" value="${file.id}">
+            <input type="hidden" name="fileHash" value="${file.fileHash}">
             <input type="hidden" name="fileName" value="${file.fileName}">
-            <input type="hidden" name="fileData" value="${file.data}">
+            <input type="hidden" name="fileDate" value="${file.fileDate}">
             <input type="hidden" name="commentFile" value="${file.comment}">
             <td>
 
@@ -236,7 +241,7 @@
 
             </td>
             <td>${file.fileName}</td>
-            <td>${file.data}</td>
+            <td>${file.fileDate}</td>
             <td>${file.comment}</td>
             <td>
                 <button class="standard" type="button"><span><a href="#correctAccessionForm"
@@ -355,9 +360,9 @@
 
 <div class="popup">
     <p>
-        <input type="file" id="loadFoto" multiple accept="image/*,image/jpeg" onchange="onFileSelected(event)">
+        <button type="button" id="selectPhotoButton"> Выбрать фото</button>
     </p>
-    <button class="btn" id="loadFotoButton"><a href="#close">Сохранить </a></button>
+    <button class="btn" id="loadPhotoButton"><a href="#close">Сохранить </a></button>
     <a class="close" href="#close"></a>
 </div>
 

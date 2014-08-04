@@ -4,27 +4,18 @@ package model;
  * Created by Margarita on 31.07.2014.
  */
 public class FilePerson {
-    private int id;
-    private String file;
+    private String fileHash;
     private String fileName;
-    private String data;
+    private String fileDate;
     private String comment;
     private int idPerson;
 
-    public int getId() {
-        return id;
+    public String getFileDate() {
+        return fileDate;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getData() {
-        return data;
-    }
-
-    public void setData(String data) {
-        this.data = data;
+    public void setFileDate(String fileDate) {
+        this.fileDate = fileDate;
     }
 
     public String getComment() {
@@ -43,12 +34,12 @@ public class FilePerson {
         this.idPerson = idPerson;
     }
 
-    public String getFile() {
-        return file;
+    public String getFileHash() {
+        return fileHash;
     }
 
-    public void setFile(String file) {
-        this.file = file;
+    public void setFileHash(String fileHash) {
+        this.fileHash = fileHash;
     }
 
     public String getFileName() {

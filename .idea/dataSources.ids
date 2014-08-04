@@ -27,10 +27,11 @@
       <index name="unique_id" unique="true" columns="id"/>
     </table>
     <table name="file" schema="" catalog="contactlist" type="TABLE">
-      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
-      <column name="name" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
-      <column name="loadDate" sqlType="DATE" precision="10" scale="0" nullable="false" jdbcType="91"/>
-      <column name="comment" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="fileHash" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="fileName" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="fileDate" sqlType="DATE" precision="10" scale="0" nullable="false" jdbcType="91"/>
+      <column name="comment" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="idPerson" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
     </table>
     <table name="maritalstatus" schema="" catalog="contactlist" type="TABLE">
       <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
@@ -56,6 +57,7 @@
       <column name="home" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <column name="flat" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
       <column name="cityIndex" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="photoPath" sqlType="VARCHAR" precision="300" scale="0" nullable="true" jdbcType="12"/>
       <primary-key name="PRIMARY" columns="id"/>
       <index name="unique_id" unique="true" columns="id"/>
     </table>
