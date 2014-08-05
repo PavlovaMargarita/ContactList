@@ -124,7 +124,7 @@ public class ConnectToDB {
         String correctPerson = "update persons set surname = ?, name = ?, patronymic = ?," +
                 "dateOfBirth = ?, sex = ?, nationality = ?, maritalStatus = ?," +
                 "webSite = ?, email = ?, company = ?, country = ?, city = ?, street = ?," +
-                "home = ?, flat = ?, cityindex = ?, photoPath = ? where id = ?";
+                "home = ?, flat = ?, cityIndex = ?, photoPath = ? where id = ?";
         try {
             Class.forName(RequestParams.bundle.getString("urlDriver"));
             Connection connect = DriverManager.getConnection(RequestParams.bundle.getString("urlDB"),
@@ -236,13 +236,13 @@ public class ConnectToDB {
 //                "else dateOfBirth end";
         String searchPerson = "select persons.id, persons.surname,persons.name, persons.patronymic, persons.dateOfBirth, " +
                 "persons.sex, persons.nationality, maritalstatus.maritalStatus,  persons.webSite, persons.email," +
-                "company.company, country.country, persons.city, persons.street, persons.home, persons.flat, persons.cityIndex " +
+                "company.company, country.country, persons.city, persons.street, persons.home, persons.flat, persons.cityIndex, persons.photoPath " +
                 "from persons join maritalstatus on persons.maritalStatus = maritalstatus.id " +
                 "join company on persons.company = company.id join country on persons.country = country.id " +
                 "where  persons.surname like ? and  persons.name like ? and  persons.patronymic like ? and  persons.sex like ? " +
                 "and persons.nationality like ? and persons.maritalStatus like ? and persons.country like ?" +
                 "and persons.city like ? and persons.street like ? and CASE WHEN ? = 0 THEN persons.home >= 0 ELSE persons.home like ? END " +
-                "and CASE WHEN ? = 0 THEN persons.flat >= 0 ELSE persons.flat like ? END and persons.cityindex like ? " +
+                "and CASE WHEN ? = 0 THEN persons.flat >= 0 ELSE persons.flat like ? END and persons.cityIndex like ? " +
                 "and case when ? = 1 then TIMESTAMPDIFF(YEAR,persons.dateOfBirth,CURDATE()) >= ?  " +
                 "when ? = 0 then TIMESTAMPDIFF(YEAR,persons.dateOfBirth,CURDATE()) <= ?   " +
                 "when ? = -1 then TIMESTAMPDIFF(YEAR,persons.dateOfBirth,CURDATE()) = ?  " +

@@ -46,29 +46,22 @@
                 <td>
                     <a href="/servlet?method=correctPerson&id=${person.id}">
                             ${person.surname} ${person.name} ${person.patronymic}</a></td>
-                    <%--${requestScope.persons.size}--%>
                 <td>${person.dateOfBirth}</td>
                 <td>${person.country} г.${person.city} ул.${person.street} д.${person.home} кв.${person.flat}</td>
                 <td>${person.company}</td>
             </tr>
             <!-- Table Row -->
         </c:forEach>
-        <%--<tr>--%>
-        <%--<th>--%>
-        <%--<div class="squaredThree">--%>
-        <%--<input type="checkbox" value="None" id="squaredThree" fileName="check" />--%>
-        <%--<label for="squaredThree"></label>--%>
-        <%--</div>--%>
-        <%--</th>--%>
-        <%--<td> <a href="/servlet?method=correctPerson">Шиманкевич Сергей Викторович </a> </td>--%>
-        <%--<td>23.03.1985</td>--%>
-        <%--<td>г.Минск ул.Жилуновича д.73 кв.44</td>--%>
-        <%--<td>Exadel</td>--%>
-        <%--</tr><!-- Table Row -->--%>
-
 
     </table>
 </form>
+<div class="tableForNavigation" align="right">
+    <a href="/servlet?method=showAllPersons&goToPage=${previousPage}">${previousPage}</a>
+    <a href="/servlet?method=showAllPersons&goToPage=${currentPage}" style="font-size: 160%">${currentPage}</a>
+    <a href="/servlet?method=showAllPersons&goToPage=${nextPage}">${nextPage}</a>
+</div>
+
+
 
 </body>
 </html>

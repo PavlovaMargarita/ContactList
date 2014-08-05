@@ -58,5 +58,6 @@ public class RequestParams {
     public static final String FILE_NAME = "fileName";
     public static final String FILE_DATE = "fileDate";
     public static final String COMMENT_FILE = "commentFile";
+    public static final String GO_TO_PAGE = "goToPage";
 
 }

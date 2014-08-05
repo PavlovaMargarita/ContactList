@@ -4,6 +4,7 @@
 <jsp:include page="menu.jsp"/>
 <html>
 <head>
+
     <title>
         Create Contact
     </title>
@@ -14,30 +15,33 @@
 <div class="wrapper">
 
     <input type="hidden" name="id" value="${person.id}"/>
-    <input type="file" name="photoFile" id="photoFileID" style="display: none" multiple accept="image/*,image/jpeg"
+    <input type="file" name="photoFile" id="photoFileID" style="display: none" accept="image/*,image/jpeg"
            onchange="onFileSelected(event)">
 			<span style="position:static;">
 				<a href="#selectImageForm" id="#selectImage">
-                    <img id="photoPerson" src="image/silhouette.jpg"/>
+                    <c:set var="photoPath" value="image/" scope="page"/>
+                    <c:set var="photoPath" value="${photoPath}${person.photoPath}" scope="page"/>
+
+                        <img id="photoPerson" src="http://localhost/images/1.jpg"/>
+                    <%--image/silhouette.jpg--%>
                 </a>
 			<p>
                 <label class="photo">Фамилия</label>
-                <input type="text" class="text" name="surname" id="surname" value="${requestScope.person.surname}"/>
+
+                <input type="text" class="text" name="surname" id="surname" value="${requestScope.person.surname}" placeholder="Введите фамилию"/>
             </p>
 			<p>
                 <label class="photo">Имя</label>
-                <input type="text" class="text" name="name" id="name" value="${requestScope.person.name}"/>
+                <input type="text" class="text" name="name" id="name" value="${requestScope.person.name}" placeholder="Введите имя"/>
             </p>
 			<p>
                 <label class="photo"> Отчество</label>
-                <input type="text" class="text" name="patronymic" id="patronymic"
-                       value="${requestScope.person.patronymic}"/>
+                <input type="text" class="text" name="patronymic" id="patronymic" value="${requestScope.person.patronymic}" placeholder="Введите отчество"/>
             </p>
 
 			<p>
                 <label class="photo">Дата рождения</label>
-                <input type="text" class="text" name="dateOfBirth" id="dateOfBirth"
-                       value="${requestScope.person.dateOfBirth}"/>
+                <input type="text" class="text" name="dateOfBirth" id="dateOfBirth" value="${requestScope.person.dateOfBirth}" placeholder="Введите дату рождения(дд-мм-гггг)"/>
             </p>
 			</span>
 
@@ -64,7 +68,7 @@
 
     <p>
         <label>Гражданство</label>
-        <input type="text" class="text" name="nationality" id="nationality" value="${requestScope.person.nationality}"/>
+        <input type="text" class="text" name="nationality" id="nationality" value="${requestScope.person.nationality}" placeholder="Введите национальность"/>
     </p>
 
     <p>
@@ -87,12 +91,12 @@
 
     <p>
         <label>Web site</label>
-        <input type="text" class="text" name="webSite" id="webSite" value="${requestScope.person.webSite}"/>
+        <input type="text" class="text" name="webSite" id="webSite" value="${requestScope.person.webSite}" placeholder="Введите web site"/>
     </p>
 
     <p>
         <label>E-mail:</label>
-        <input type="text" class="text" name="email" id="email" value="${requestScope.person.email}"/>
+        <input type="text" class="text" name="email" id="email" value="${requestScope.person.email}" placeholder="Введите email"/>
     </p>
 
     <p>
@@ -138,27 +142,27 @@
 
     <p>
         <label class="live">Город</label>
-        <input type="text" class="text" name="city" id="city" value="${requestScope.person.city}"/>
+        <input type="text" class="text" name="city" id="city" value="${requestScope.person.city}" placeholder="Введите город"/>
     </p>
 
     <p>
         <label class="live">Улица</label>
-        <input type="text" class="text" name="street" id="street" value="${requestScope.person.street}"/>
+        <input type="text" class="text" name="street" id="street" value="${requestScope.person.street}" placeholder="Введите улицу"/>
     </p>
 
     <p>
         <label class="live">Дом</label>
-        <input type="text" class="text" name="home" id="home" value="${requestScope.person.home}"/>
+        <input type="text" class="text" name="home" id="home" value="${requestScope.person.home}" placeholder="Введите номер дома"/>
     </p>
 
     <p>
         <label class="live">Квартира</label>
-        <input type="text" class="text" name="flat" id="flat" value="${requestScope.person.flat}"/>
+        <input type="text" class="text" name="flat" id="flat" value="${requestScope.person.flat}" placeholder="Введите номер квартиры"/>
     </p>
 
     <p>
         <label class="live">Индекс</label>
-        <input type="text" class="text" name="index" id="index" value="${requestScope.person.index}"/>
+        <input type="text" class="text" name="index" id="index" value="${requestScope.person.index}" placeholder="Введите индекс"/>
     </p>
 </div>
 <br/>
@@ -167,7 +171,7 @@
 <h2 align="center" class="textFont">Список контактных телефонов </h2>
 
 <div align="right">
-    <button class="standard" type="button"><a href="#addContactForm">Добавить контакт </a>
+    <button class="standard" type="button"><a href="#addContactForm" style="color:white">Добавить контакт </a>
     </button>
     <button class="attention" type="button" onclick="deletePhone()"> Удалить</button>
 </div>
@@ -199,7 +203,7 @@
             <td>${phone.comment}</td>
             <td>
                 <button class="standard" type="button"><span><a href="#correctContactForm"
-                                                                onclick="openCorrectPhone(this)">Редактировать
+                                                                onclick="openCorrectPhone(this)" style="color:white">Редактировать
                     контакт </a></span></button>
             </td>
         </tr>
@@ -214,7 +218,7 @@
 <h2 align="center" class="textFont">Список присоединений </h2>
 
 <div align="right">
-    <button class="standard" type="button"><a href="#addAccessionForm">Добавить присоединение </a>
+    <button class="standard" type="button"><a href="#addAccessionForm" style="color:white">Добавить присоединение </a>
     </button>
     <button class="attention" type="button" id="deleteFile"> Удалить</button>
 </div>
@@ -245,7 +249,7 @@
             <td>${file.comment}</td>
             <td>
                 <button class="standard" type="button"><span><a href="#correctAccessionForm"
-                                                                onclick="openCorrectFile(this)">Редактировать
+                                                                onclick="openCorrectFile(this)" style="color:white">Редактировать
                     файл </a></span></button>
             </td>
         </tr>
@@ -264,23 +268,23 @@
 <div class="popup">
     <div>
         <label>Код страны</label>
-        <input type="text" id="countryCodeIDAdd" value=""/>
+        <input type="text" id="countryCodeIDAdd" value="" placeholder="Введите код страны"/>
     </div>
     <div>
         <label>Код оператора</label>
-        <input type="text" id="operatorCodeIDAdd" value=""/>
+        <input type="text" id="operatorCodeIDAdd" value="" placeholder="Введите код оператора"/>
     </div>
     <div>
         <label>Телефонный номер</label>
-        <input type="text" id="phoneNumberIDAdd" value=""/>
+        <input type="text" id="phoneNumberIDAdd" value="" placeholder="Введите номер телефона"/>
     </div>
     <div>
         <label>Тип номера</label>
-        <input type="text" id="phoneTypeIDAdd" value=""/>
+        <input type="text" id="phoneTypeIDAdd" value="" placeholder="Введите тип номера"/>
     </div>
     <div>
         <label>Комментарий</label>
-        <input type="text" id="commentPhoneIDAdd" value=""/>
+        <input type="text" id="commentPhoneIDAdd" value="" placeholder="Добавьте комментарий"/>
     </div>
 
     <button class="btn" id="saveAddPhone"><a href="#close">Сохранить </a></button>
@@ -294,23 +298,23 @@
 <div class="popup">
     <div>
         <label>Код страны</label>
-        <input type="text" id="countryCodeIDCorrect" name="countryCode" value=""/>
+        <input type="text" id="countryCodeIDCorrect" name="countryCode" value="" placeholder="Введите код страны"/>
     </div>
     <div>
         <label>Код оператора</label>
-        <input type="text" id="operatorCodeIDCorrect" name="operatorCode" value=""/>
+        <input type="text" id="operatorCodeIDCorrect" name="operatorCode" value="" placeholder="Введите код оператора"/>
     </div>
     <div>
         <label>Телефонный номер</label>
-        <input type="text" id="phoneNumberIDCorrect" name="phoneNumber" value=""/>
+        <input type="text" id="phoneNumberIDCorrect" name="phoneNumber" value="" placeholder="Введите номер телефона"/>
     </div>
     <div>
         <label>Тип номера</label>
-        <input type="text" id="phoneTypeIDCorrect" name="phoneType" value=""/>
+        <input type="text" id="phoneTypeIDCorrect" name="phoneType" value="" placeholder="Введите тип номера"/>
     </div>
     <div>
         <label>Комментарий</label>
-        <input type="text" id="commentPhoneIDCorrect" name="comment" value=""/>
+        <input type="text" id="commentPhoneIDCorrect" name="comment" value="" placeholder="Добавьте комментарий"/>
     </div>
     <input type="hidden" id="rowCountPhoneCorrect" value=""/>
     <button class="btn" id="saveCorrectPhone"><a href="#close">Сохранить </a></button>
@@ -330,7 +334,7 @@
     </div>
     <div>
         <label>Комментарий</label>
-        <input type="text" id="commentFileIDAdd" value=""/>
+        <input type="text" id="commentFileIDAdd" value="" placeholder="Добавьте комментарий"/>
     </div>
     <button class="btn" id="addFile"><a href="#close">Сохранить </a></button>
     <a class="close" href="#close"></a>
@@ -347,7 +351,7 @@
         <label>Комментарий</label>
         <input type="text" id="commentFileIDCorrect" value=""/>
     </div>
-    <input type="hidden" id="rowCountFileCorrect" value=""/>
+    <input type="hidden" id="rowCountFileCorrect" value="" placeholder="Добавьте комментарий"/>
     <button class="btn" id="saveCorrectFileButton"><a href="#close">Сохранить </a></button>
     <a class="close" href="#close"></a>
 </div>

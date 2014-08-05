@@ -123,7 +123,7 @@ document.getElementById('saveAddPhone').onclick = function(){
     elementButton.className = "standard";
     elementButton.type = "button";
     var elementSpan = document.createElement("span");
-    elementSpan.innerHTML = '<a href="#correctContactForm" onclick="openCorrectPhone(this)"> Редактировать контакт </a>';
+    elementSpan.innerHTML = '<a href="#correctContactForm" onclick="openCorrectPhone(this)" style="color:white"> Редактировать контакт </a> ';
     elementButton.appendChild(elementSpan);
     cellButton.appendChild(elementButton);
 }
@@ -212,7 +212,7 @@ document.getElementById('addFile').onclick = function(){
     elementButton.className = "standard";
     elementButton.type = "button";
     var elementSpan = document.createElement("span");
-    elementSpan.innerHTML = '<a href="#correctAccessionForm" onclick="openCorrectFile(this)"> Редактировать контакт </a>';
+    elementSpan.innerHTML = '<a href="#correctAccessionForm" onclick="openCorrectFile(this)" style="color:white"> Редактировать контакт </a>';
     elementButton.appendChild(elementSpan);
     cellButton.appendChild(elementButton);
 
@@ -259,38 +259,6 @@ document.getElementById('deleteFile').onclick = function() {
         }
     }
 }
-
-//document.getElementById('loadFotoButton').onclick = function(){
-//    var fileName = document.getElementById('loadFoto').value;
-//    if(fileName == ""){
-//        return false;
-//    }
-//
-//}
-//
-//var resultFoto;
-//function onFileSelected(event) {
-//    var selectedFile = event.target.files[0];
-//    var reader = new FileReader();
-//
-////    var imgtag = document.getElementById("fotoPerson");
-////    imgtag.title = selectedFile.name;
-//
-//    reader.onload = function(event) {
-////        imgtag.src = event.target.result;
-//        resultFoto = event.target.result;
-//    };
-//
-//    reader.readAsDataURL(selectedFile);
-//}
-//
-//document.getElementById('loadFotoButton').onclick = function(){
-//    if(resultFoto == "" || resultFoto == undefined){
-//        return false;
-//    }
-//    var imgtag = document.getElementById("fotoPerson");
-//    imgtag.src = resultFoto;
-//}
 
 document.getElementById('save').onclick = function(){
     var regEmail= /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -475,12 +443,7 @@ var resultPhoto;
 function onFileSelected(event) {
     var selectedFile = event.target.files[0];
     var reader = new FileReader();
-
-//    var imgtag = document.getElementById("fotoPerson");
-//    imgtag.title = selectedFile.name;
-
     reader.onload = function(event) {
-//        imgtag.src = event.target.result;
         resultPhoto = event.target.result;
     };
 

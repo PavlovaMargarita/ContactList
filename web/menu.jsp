@@ -14,7 +14,7 @@
 <body>
 <div id="menu">
     <ul>
-        <li><a href="/servlet?method=showAllPersons"><span>Список контактов</span></a></li>
+        <li><a href="/servlet?method=showAllPersons&goToPage=1"><span>Список контактов</span></a></li>
         <li><a href="/servlet?method=searchPerson"><span>Поиск</span></a></li>
         <li><a href="/servlet?method=createPerson"><span>Создать контакт</span></a></li>
     </ul>

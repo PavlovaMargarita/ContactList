@@ -21,10 +21,9 @@
         <listener-class>controller.FileLocationContextListener</listener-class>
     </listener>
     <context-param>
-        <param-name>tempfile.dir</param-name>
-        <param-value>tmpfiles</param-value>
+        <param-name>property</param-name>
+        <param-value>property.properties</param-value>
     </context-param>
-
 
     <!---->
     <!--<servlet>-->

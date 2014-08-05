@@ -86,15 +86,17 @@ public class FormCorrectPersonCommand implements Command {
         DiskFileItemFactory factory = new DiskFileItemFactory();
         factory.setSizeThreshold(THRESHOLD_SIZE);
         factory.setRepository(new File(System.getProperty("java.io.tmpdir")));
+//        factory.setRepository(new File("D:\\BSU\\iTechArt\\ContactList\\web\\image\person"));
 
         ServletFileUpload upload = new ServletFileUpload(factory);
         upload.setFileSizeMax(MAX_FILE_SIZE);
         upload.setSizeMax(MAX_REQUEST_SIZE);
 
         // constructs the directory path to store upload file
-        String uploadPath = request.getSession().getServletContext().getRealPath("")
-                + File.separator + UPLOAD_DIRECTORY;
+//        String uploadPath = request.getSession().getServletContext().getRealPath("")
+//                + File.separator + UPLOAD_DIRECTORY;
         // creates the directory if it does not exist
+       String uploadPath = "C:\\contactListImageFolder\\servlet";
         File uploadDir = new File(uploadPath);
         if (!uploadDir.exists()) {
             uploadDir.mkdir();
@@ -154,7 +156,7 @@ public class FormCorrectPersonCommand implements Command {
                         File storeFile = new File(photoPath);
                         // saves the file on disk
                         item.write(storeFile);
-                        person.setPhotoPath(photoPath);
+                        person.setPhotoPath(photoHash + "." + format.toString());
 
                     }
 

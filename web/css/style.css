@@ -2,9 +2,11 @@ body {
     margin: 0;
     padding: 0;
     background-image: url(/image/background.jpg);
+    background-attachment: fixed;
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
+    color: rgb(102, 102, 102);;
 }
 
 #menu {
@@ -204,6 +206,9 @@ button.attention:active {
 a:link {
     text-decoration: none;
 }
+a:link{
+    color: #666;
+}
 
 /* unvisited link */
 a:visited {
@@ -212,8 +217,9 @@ a:visited {
 
 /* visited link */
 a:visited {
-    color: black;
+    color: #666;
 }
+
 
 a:hover {
     text-decoration: none;
@@ -300,6 +306,16 @@ label.live {
     color: #666;
 }
 
+input[type="text"]
+{
+    font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
+    font-size: 100%;
+    color:#666;
+    word-spacing: 0.25em;
+    text-indent: 2%;
+
+
+}
 /* CSS3 */
 .btn,
 .text {
@@ -446,4 +462,34 @@ img {
     width: 15%;
     height: 20%;
     float: left; /* Выравнивание по левому краю */
+}
+
+div.tableForNavigation{
+
+    font-family: 'Comic Sans MS', cursive;
+    font-size: 107%;
+    font-weight: bold;
+    line-height: 100%;
+    letter-spacing: 0.5em;
+    word-spacing: 0.5em;
+    text-indent: 2%;
+    margin-right: 3%;
+}
+
+select{
+    width: 30%;
+    height: 4%;
+    border: 1px solid #ddd;
+    color: #333;
+    position: relative;
+    z-index: 2;
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+    border-radius: 8px;
+    font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
+    font-size: 100%;
+    color:#666;
+    line-height: 0%;
+    word-spacing: 0.25em;
+    text-indent: 2%;
 }
