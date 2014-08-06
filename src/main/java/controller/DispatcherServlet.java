@@ -3,6 +3,7 @@ package controller;
 import controller.command.*;
 import logger.LoggerApplication;
 import param.RequestParams;
+import timer.TimerDateCheck;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -34,6 +35,7 @@ public class DispatcherServlet extends HttpServlet {
         commandMap.put(RequestParams.DELETE_PERSON, new DeletePersonCommand());
         commandMap.put(RequestParams.SEARCH_PERSON, new SearchContactCommand());
         commandMap.put(RequestParams.SEND_EMAIL, new SendEmailCommand());
+        TimerDateCheck.getInstance();
     }
 
     @Override

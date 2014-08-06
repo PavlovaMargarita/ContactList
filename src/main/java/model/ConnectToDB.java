@@ -469,4 +469,44 @@ public class ConnectToDB {
         return templates;
 
     }
+
+    public List selectPersonBirthDay(int day, int month){
+        List persons = new ArrayList<Person>();
+        String searchPerson = "select persons.surname,persons.name, persons.patronymic, persons.dateOfBirth, persons.email from persons where DAYOFMONTH(persons.dateOfBirth)= ? and ? = month(persons.dateOfBirth)";
+
+        try {
+            Class.forName(RequestParams.bundle.getString("urlDriver"));
+            Connection connect = DriverManager.getConnection(RequestParams.bundle.getString("urlDB"),
+                    RequestParams.bundle.getString("userDB"), RequestParams.bundle.getString("passwordDB"));
+            PreparedStatement statement = connect.prepareStatement(searchPerson);
+            statement.setInt(1, day);
+            statement.setInt(2, month);
+            ResultSet resultPerson = statement.executeQuery();
+            while (resultPerson.next()){
+                Person person = new Person();
+                person.setSurname(resultPerson.getString(RequestParams.SURNAME));
+                person.setName(resultPerson.getString(RequestParams.NAME));
+                person.setPatronymic(resultPerson.getString(RequestParams.PATRONYMIC));
+                StringTokenizer st = new StringTokenizer(resultPerson.getString(RequestParams.DATE_OF_BIRTH), "-");
+                StringBuilder dateOfBirth = new StringBuilder();
+                while(st.hasMoreTokens()){
+                    dateOfBirth.insert(0,st.nextToken());
+                    if(st.hasMoreTokens()){
+                        dateOfBirth.insert(0, "-");
+                    }
+                }
+                person.setDateOfBirth(dateOfBirth.toString());
+                person.setEmail(resultPerson.getString(RequestParams.EMAIL));
+                persons.add(person);
+            }
+            statement.close();
+            connect.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return persons;
+    }
 }

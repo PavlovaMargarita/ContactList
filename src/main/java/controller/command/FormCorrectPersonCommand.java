@@ -11,13 +11,13 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import param.RequestParams;
 
+import javax.mail.*;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by Margarita on 23.07.2014.
@@ -262,6 +262,54 @@ public class FormCorrectPersonCommand implements Command {
             person.setPhone(phones);
             person.setFile(files);
             PersonDAOImpl.getInstance().correctPerson(person);
+            String dateOfBirth = person.getDateOfBirth();
+            StringTokenizer stringTokenizer = new StringTokenizer(dateOfBirth, "-");
+            String dayBirth = stringTokenizer.nextToken();
+            String monthBirth = stringTokenizer.nextToken();
+            Calendar c = Calendar.getInstance();
+            int day = c.get(Calendar.DAY_OF_MONTH);
+            int month = c.get(Calendar.MONTH);
+            month++;
+            if (day == Integer.parseInt(dayBirth) && month == Integer.parseInt(monthBirth)) {
+                StringBuilder message = new StringBuilder();
+                message.append(person.getSurname());
+                message.append(" ");
+                message.append(person.getName());
+                message.append(" ");
+                message.append(person.getPatronymic());
+                message.append(", ");
+                message.append(person.getDateOfBirth());
+                message.append(", ");
+                message.append(person.getEmail());
+                message.append("\r\n");
+                String host = "smtp.gmail.com";
+                String port = "587";
+                final String user = "xomrita@gmail.com";
+                final String pass = "pavlovamarisha";
+                Properties properties = new Properties();
+                properties.put(RequestParams.bundle.getString("hostMail"), host);
+                properties.put(RequestParams.bundle.getString("portMail"), port);
+                properties.put(RequestParams.bundle.getString("authMail"), "true");
+                properties.put(RequestParams.bundle.getString("strttlsMail"), "true");
+                properties.put(RequestParams.bundle.getString("userMail"), user);
+                properties.put(RequestParams.bundle.getString("passwordMail"), pass);
+                Authenticator auth = new Authenticator() {
+                    public PasswordAuthentication getPasswordAuthentication() {
+                        return new PasswordAuthentication(user, pass);
+                    }
+                };
+                Session session = Session.getInstance(properties, auth);
+                Message msg = new MimeMessage(session);
+
+                msg.setFrom(new InternetAddress(user));
+                InternetAddress[] toAddresses = {new InternetAddress("xomrita@gmail.com")};
+                msg.setRecipients(Message.RecipientType.TO, toAddresses);
+                msg.setSubject("Birthday");
+                msg.setSentDate(new Date());
+                msg.setText(message.toString());
+                Transport.send(msg);
+            }
+
 
         } catch (Exception ex) {
             LoggerApplication.getInstance().setError(ex.getMessage());
