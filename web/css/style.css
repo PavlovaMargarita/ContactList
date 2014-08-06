@@ -244,11 +244,11 @@ h2.textFont {
     width: 70%;
 }
 
-.blocks p {
-    margin-bottom: 1%;
-    margin-top: 0%;
+/*.blocks p {*/
+    /*margin-bottom: 1%;*/
+    /*margin-top: 0%;*/
 
-}
+/*}*/
 
 /*button {*/
 /*display: block;*/
@@ -265,7 +265,7 @@ h2.textFont {
 
 .text {
 
-    height: 4%;
+    height: 1.5em;
     border: 1px solid #ddd;
     color: #333;
     position: relative;
@@ -459,7 +459,7 @@ header.stuts span {
 img {
     border: 1px solid #ccc;
     width: 15%;
-    height: 20%;
+    height: 10em;
     float: left; /* Выравнивание по левому краю */
 }
 
@@ -477,7 +477,7 @@ div.tableForNavigation{
 
 select{
     width: 30%;
-    height: 4%;
+    height: 1.5em;
     border: 1px solid #ddd;
     color: #333;
     position: relative;

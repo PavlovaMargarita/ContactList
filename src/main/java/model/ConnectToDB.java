@@ -55,7 +55,6 @@ public class ConnectToDB {
             ResultSet resultPhone = statement.executeQuery();
             while (resultPhone.next()) {
                 Phone phone = new Phone();
-                phone.setId(resultPhone.getInt(RequestParams.ID));
                 phone.setCountryCode(resultPhone.getInt(RequestParams.COUNTY_CODE));
                 phone.setOperatorCode(resultPhone.getInt(RequestParams.OPERATOR_CODE));
                 phone.setPhoneNumber(resultPhone.getInt(RequestParams.PHONE_NUMBER));

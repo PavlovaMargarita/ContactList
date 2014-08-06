@@ -4,7 +4,6 @@ package model.phone;
  * Created by Margarita on 25.07.2014.
  */
 public class Phone {
-    private int id;
     private int countryCode;
     private int operatorCode;
     private int phoneNumber;
@@ -12,15 +11,6 @@ public class Phone {
     private String comment;
     private int idPerson;
     public Phone(){}
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public int getPhoneNumber() {
         return phoneNumber;
     }

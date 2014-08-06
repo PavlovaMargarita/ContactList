@@ -205,53 +205,63 @@ public class FormCorrectPersonCommand implements Command {
             }
             person.setPhone(phones);
             person.setFile(files);
+            Person test = new Person();
+            String oldDate = "";
+            String newDate = person.getDateOfBirth();
+            if(person.getId() != 0){
+                test = PersonDAOImpl.getInstance().getPerson(person.getId());
+                oldDate = test.getDateOfBirth();
+            }
             PersonDAOImpl.getInstance().correctPerson(person);
-            String dateOfBirth = person.getDateOfBirth();
-            StringTokenizer stringTokenizer = new StringTokenizer(dateOfBirth, "-");
-            String dayBirth = stringTokenizer.nextToken();
-            String monthBirth = stringTokenizer.nextToken();
-            Calendar c = Calendar.getInstance();
-            int day = c.get(Calendar.DAY_OF_MONTH);
-            int month = c.get(Calendar.MONTH);
-            month++;
-            if (day == Integer.parseInt(dayBirth) && month == Integer.parseInt(monthBirth)) {
-                StringBuilder message = new StringBuilder();
-                message.append(person.getSurname());
-                message.append(" ");
-                message.append(person.getName());
-                message.append(" ");
-                message.append(person.getPatronymic());
-                message.append(", ");
-                message.append(person.getDateOfBirth());
-                message.append(", ");
-                message.append(person.getEmail());
-                message.append("\r\n");
-                String host = "smtp.gmail.com";
-                String port = "587";
-                final String user = "xomrita@gmail.com";
-                final String pass = "pavlovamarisha";
-                Properties properties = new Properties();
-                properties.put(RequestParams.bundle.getString("hostMail"), host);
-                properties.put(RequestParams.bundle.getString("portMail"), port);
-                properties.put(RequestParams.bundle.getString("authMail"), "true");
-                properties.put(RequestParams.bundle.getString("strttlsMail"), "true");
-                properties.put(RequestParams.bundle.getString("userMail"), user);
-                properties.put(RequestParams.bundle.getString("passwordMail"), pass);
-                Authenticator auth = new Authenticator() {
-                    public PasswordAuthentication getPasswordAuthentication() {
-                        return new PasswordAuthentication(user, pass);
-                    }
-                };
-                Session session = Session.getInstance(properties, auth);
-                Message msg = new MimeMessage(session);
+            if(!oldDate.equals(newDate)) {
 
-                msg.setFrom(new InternetAddress(user));
-                InternetAddress[] toAddresses = {new InternetAddress("xomrita@gmail.com")};
-                msg.setRecipients(Message.RecipientType.TO, toAddresses);
-                msg.setSubject("Birthday");
-                msg.setSentDate(new Date());
-                msg.setText(message.toString());
-                Transport.send(msg);
+                String dateOfBirth = person.getDateOfBirth();
+                StringTokenizer stringTokenizer = new StringTokenizer(dateOfBirth, "-");
+                String dayBirth = stringTokenizer.nextToken();
+                String monthBirth = stringTokenizer.nextToken();
+                Calendar c = Calendar.getInstance();
+                int day = c.get(Calendar.DAY_OF_MONTH);
+                int month = c.get(Calendar.MONTH);
+                month++;
+                if (day == Integer.parseInt(dayBirth) && month == Integer.parseInt(monthBirth)) {
+                    StringBuilder message = new StringBuilder();
+                    message.append(person.getSurname());
+                    message.append(" ");
+                    message.append(person.getName());
+                    message.append(" ");
+                    message.append(person.getPatronymic());
+                    message.append(", ");
+                    message.append(person.getDateOfBirth());
+                    message.append(", ");
+                    message.append(person.getEmail());
+                    message.append("\r\n");
+                    String host = "smtp.gmail.com";
+                    String port = "587";
+                    final String user = "xomrita@gmail.com";
+                    final String pass = "pavlovamarisha";
+                    Properties properties = new Properties();
+                    properties.put(RequestParams.bundle.getString("hostMail"), host);
+                    properties.put(RequestParams.bundle.getString("portMail"), port);
+                    properties.put(RequestParams.bundle.getString("authMail"), "true");
+                    properties.put(RequestParams.bundle.getString("strttlsMail"), "true");
+                    properties.put(RequestParams.bundle.getString("userMail"), user);
+                    properties.put(RequestParams.bundle.getString("passwordMail"), pass);
+                    Authenticator auth = new Authenticator() {
+                        public PasswordAuthentication getPasswordAuthentication() {
+                            return new PasswordAuthentication(user, pass);
+                        }
+                    };
+                    Session session = Session.getInstance(properties, auth);
+                    Message msg = new MimeMessage(session);
+
+                    msg.setFrom(new InternetAddress(user));
+                    InternetAddress[] toAddresses = {new InternetAddress("xomrita@gmail.com")};
+                    msg.setRecipients(Message.RecipientType.TO, toAddresses);
+                    msg.setSubject("Birthday");
+                    msg.setSentDate(new Date());
+                    msg.setText(message.toString());
+                    Transport.send(msg);
+                }
             }
 
 

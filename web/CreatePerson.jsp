@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" language="java" %>
-<%--<!DOCTYPE html>--%>
+<!DOCTYPE html>
 <jsp:include page="menu.jsp"/>
 <html>
 <head>
@@ -193,7 +193,7 @@
             <input type="hidden" name="commentPhoneID" value="${phone.comment}">
             <td>
 
-                <input type="checkbox" name="checkPhone" value="${phone.id}"/>
+                <input type="checkbox" name="checkPhone" value=""/>
 
             </td>
             <td>+${phone.countryCode}${phone.operatorCode}${phone.phoneNumber}</td>
