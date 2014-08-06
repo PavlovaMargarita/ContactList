@@ -1,6 +1,3 @@
-//document.getElementById('ageID').onkeyup = function(){
-//    alert("ok");
-//}
 document.getElementById('age').onkeyup = function(){
     var val = document.getElementById('age').value;
     if(isInt(val)){

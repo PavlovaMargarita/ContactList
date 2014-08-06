@@ -100,7 +100,6 @@
 
     <p>
         <label><fmt:message key="company"/></label>
-        <%--<input type="text" class="text" fileName="company" value="${requestScope.person.company}"/>--%>
         <select name="company">
             <c:forEach var="company" items="${companies}">
                 <c:choose>
@@ -366,6 +365,6 @@
     <a class="close" href="#close"></a>
 </div>
 
-<script type="text/javascript" src="js/js.js"></script>
+<script type="text/javascript" src="js/jsForCorrectPerson.js"></script>
 </body>
 </html>

@@ -49,13 +49,8 @@ public class MyTimer extends TimerTask {
                 return new PasswordAuthentication(user, pass);
             }
         };
-
         Session session = Session.getInstance(properties, auth);
-
-        // creates a new e-mail message
         Message msg = new MimeMessage(session);
-
-
         try {
             msg.setFrom(new InternetAddress(user));
             InternetAddress[] toAddresses = {new InternetAddress("xomrita@gmail.com")};
@@ -67,11 +62,5 @@ public class MyTimer extends TimerTask {
         } catch (MessagingException e) {
             e.printStackTrace();
         }
-
-
-            // sends the e-mail
-
-
-        System.out.println( "Запуск задачи" );
     }
 }

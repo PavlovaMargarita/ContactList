@@ -51,14 +51,9 @@ public class RequestParams {
     public static final String COMMENT = "comment";
     public static final String ID_PERSON = "idPerson";
     public static final String COUNTY_CODE_ID = "countryCodeID";
-    public static final String OPERATOR_CODE_ID = "operatorCodeID";
-    public static final String PHONE_NUMBER_ID = "phoneNumberID";
-    public static final String PHONE_TYPE_ID = "phoneTypeID";
-    public static final String COMMENT_PHONE_ID = "commentPhoneID";
     public static final String FILE_HASH = "fileHash";
     public static final String FILE_NAME = "fileName";
     public static final String FILE_DATE = "fileDate";
-    public static final String COMMENT_FILE = "commentFile";
     public static final String GO_TO_PAGE = "goToPage";
     public static final String SEND_EMAIL = "sendEmail";
     public static final String TEMPLATE = "template";

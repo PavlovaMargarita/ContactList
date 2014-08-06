@@ -49,7 +49,7 @@ public class PersonDAOImpl implements PersonDAO {
     public List searchPersons(String surname, String name, String patronymic, String age, String[] ageRange,
                               String sex, String nationality, String maritalStatus, String country, String city,
                               String street, String home, String flat, String index) {
-        List persons = new ArrayList<Person>();
+        List persons;
         int homeInt;
         int flatInt;
         int ageInt;

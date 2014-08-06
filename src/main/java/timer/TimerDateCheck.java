@@ -16,8 +16,6 @@ public class TimerDateCheck {
     private TimerDateCheck() {
         TimerTask tasknew = new MyTimer();
         Timer timer = new Timer();
-
-
         // scheduling the task at interval
         timer.schedule(tasknew,50, 24*60*60 * 1000);
     }

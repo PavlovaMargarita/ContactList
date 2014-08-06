@@ -1,12 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%--
-  Created by IntelliJ IDEA.
-  User: Margarita
-  Date: 21.07.2014
-  Time: 12:20
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:include page="menu.jsp"/>
 <html>
@@ -86,9 +79,6 @@
                 <textarea class="textarea" id="message" name="message" value="" placeholder="<fmt:message key="enterMessage"/>"></textarea>
             </div>
             <button class="btn" id="popupSendEmailButton"><a href="#close">Отправить email </a></button>
-
-            <%--<button class="btn"  onclick="saveCorrectPhone()"> Сохранить </button>--%>
-
             <a class="close" href="#close" id="closeID"></a>
 
     </div>

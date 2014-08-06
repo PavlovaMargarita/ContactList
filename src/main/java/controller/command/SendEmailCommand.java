@@ -21,21 +21,7 @@ public class SendEmailCommand implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
 
-//        Context initCtx = null;
         try {
-//            initCtx = new InitialContext();
-//            Context envCtx = (Context) initCtx.lookup("java:comp/env");
-//            Session session = (Session) envCtx.lookup("mail/NomDeLaResource");
-//
-//            Message message = new MimeMessage(session);
-//            message.setFrom(new InternetAddress("xomrita@gmail.com"));
-//            InternetAddress to[] = new InternetAddress[1];
-//            to[0] = new InternetAddress("xomrita@mail.ru");
-//            message.setRecipients(Message.RecipientType.TO, to);
-//            message.setSubject("check");
-//            message.setContent("hello", "text/plain");
-//            Transport.send(message);
-            //-----------
             String usersReq = request.getParameter(RequestParams.EMAILS);
             String subjectReq = request.getParameter(RequestParams.SUBJECT);
             String templateReq = request.getParameter(RequestParams.TEMPLATE);
@@ -64,12 +50,6 @@ public class SendEmailCommand implements Command {
             final String user = request.getSession().getServletContext().getInitParameter(RequestParams.USER);
             final String pass = request.getSession().getServletContext().getInitParameter(RequestParams.PASS);
             Properties properties = new Properties();
-//            properties.put("mail.smtp.host", host);
-//            properties.put("mail.smtp.port", port);
-//            properties.put("mail.smtp.auth", "true");
-//            properties.put("mail.smtp.starttls.enable", "true");
-//            properties.put("mail.user", user);
-//            properties.put("mail.password", pass);
             properties.put(RequestParams.bundle.getString("hostMail"), host);
             properties.put(RequestParams.bundle.getString("portMail"), port);
             properties.put(RequestParams.bundle.getString("authMail"), "true");
@@ -82,9 +62,7 @@ public class SendEmailCommand implements Command {
                     return new PasswordAuthentication(user, pass);
                 }
             };
-
             Session session = Session.getInstance(properties, auth);
-
             // creates a new e-mail message
             Message msg = new MimeMessage(session);
 
@@ -101,22 +79,10 @@ public class SendEmailCommand implements Command {
                 msg.setSubject(subjectReq);
                 msg.setSentDate(new Date());
                 msg.setText(messageReq);
-
                 // sends the e-mail
                 Transport.send(msg);
 
             }
-
-//            msg.setFrom(new InternetAddress(user));
-//            InternetAddress[] toAddresses = { new InternetAddress("xomrita@mail.ru") };
-//            msg.setRecipients(Message.RecipientType.TO, toAddresses);
-//            msg.setSubject("test");
-//            msg.setSentDate(new Date());
-//            msg.setText("hello");
-//
-//            // sends the e-mail
-//            Transport.send(msg);
-
         } catch (AddressException e) {
             LoggerApplication.getInstance().setError(e.getMessage());
         } catch (MessagingException e) {

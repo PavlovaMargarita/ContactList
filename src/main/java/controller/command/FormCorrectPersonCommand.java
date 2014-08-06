@@ -30,33 +30,6 @@ public class FormCorrectPersonCommand implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         Person person = new Person();
-//        String id = request.getParameter(RequestParams.ID);
-//        if (!id.equals("")) {
-//            person.setId(Integer.parseInt(id));
-//        }
-//        person.setSurname(request.getParameter(RequestParams.SURNAME));
-//        person.setName(request.getParameter(RequestParams.NAME));
-//        person.setPatronymic(request.getParameter(RequestParams.PATRONYMIC));
-//        person.setDateOfBirth(request.getParameter(RequestParams.DATE_OF_BIRTH));
-//        person.setSex(request.getParameter(RequestParams.SEX));
-//        person.setNationality(request.getParameter(RequestParams.NATIONALITY));
-//        person.setMaritalStatus(request.getParameter(RequestParams.MARITAL_STATUS));
-//        person.setWebSite(request.getParameter(RequestParams.WEB_SITE));
-//        person.setEmail(request.getParameter(RequestParams.EMAIL));
-//        person.setCompany(request.getParameter(RequestParams.COMPANY));
-//        person.setCountry(request.getParameter(RequestParams.COUNTRY));
-//        person.setCity(request.getParameter(RequestParams.CITY));
-//        person.setStreet(request.getParameter(RequestParams.STREET));
-//        person.setHome(Integer.parseInt(request.getParameter(RequestParams.HOME)));
-//        person.setFlat(Integer.parseInt(request.getParameter(RequestParams.FLAT)));
-//        person.setIndex(request.getParameter(RequestParams.INDEX));
-//
-//        String[] idPhone = request.getParameterValues(RequestParams.ID_ID);
-//        String[] countryCode = request.getParameterValues(RequestParams.COUNTY_CODE_ID);
-//        String[] operatorCode = request.getParameterValues(RequestParams.OPERATOR_CODE_ID);
-//        String[] phoneNumber = request.getParameterValues(RequestParams.PHONE_NUMBER_ID);
-//        String[] phoneType = request.getParameterValues(RequestParams.PHONE_TYPE_ID);
-//        String[] comment = request.getParameterValues(RequestParams.COMMENT_PHONE_ID);
         List phones = new ArrayList<Phone>();
         List files = new ArrayList<FilePerson>();
         if (!ServletFileUpload.isMultipartContent(request)) {
@@ -67,16 +40,9 @@ public class FormCorrectPersonCommand implements Command {
         DiskFileItemFactory factory = new DiskFileItemFactory();
         factory.setSizeThreshold(THRESHOLD_SIZE);
         factory.setRepository(new File(System.getProperty(RequestParams.bundle.getString("propertyRepository"))));
-//        factory.setRepository(new File("D:\\BSU\\iTechArt\\ContactList\\web\\image\person"));
-
         ServletFileUpload upload = new ServletFileUpload(factory);
         upload.setFileSizeMax(MAX_FILE_SIZE);
         upload.setSizeMax(MAX_REQUEST_SIZE);
-
-        // constructs the directory path to store upload file
-//        String uploadPath = request.getSession().getServletContext().getRealPath("")
-//                + File.separator + UPLOAD_DIRECTORY;
-        // creates the directory if it does not exist
         String uploadPath = RequestParams.bundle.getString("uploadPath");
         File uploadDir = new File(uploadPath);
         if (!uploadDir.exists()) {
@@ -107,8 +73,6 @@ public class FormCorrectPersonCommand implements Command {
                         Calendar cal = Calendar.getInstance();
                         String fileHash = fileName + value + cal.getTime().toString();
                         fileHash = Integer.toString(fileHash.hashCode());
-
-//                    String fileName = new File(item.getName()).getName();
                         StringBuilder format = new StringBuilder();
                         for (int i = fileName.length(); i > 0 && (fileName.charAt(i - 1) != '.'); i--) {
                             format.insert(0, fileName.charAt(i - 1));

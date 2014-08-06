@@ -55,7 +55,6 @@
 
         <p>
             <label><fmt:message key="country"/></label>
-            <%--<input type="text" class="text" fileName="country" />--%>
             <select name="country">
                 <option value=""></option>
                 <c:forEach var="country" items="${countries}">
