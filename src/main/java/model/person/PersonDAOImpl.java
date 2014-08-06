@@ -35,9 +35,14 @@ public class PersonDAOImpl implements PersonDAO {
     }
 
     @Override
-    public List getPersons() {
+    public List getPersons(int page) {
         List persons = ConnectToDB.getInstance().getPersons();
-        return persons;
+        List personForPage = new ArrayList<Person>();
+
+        for (int i = (page - 1) * 20; i < page * 20 && i < persons.size(); i++) {
+            personForPage.add(persons.get(i));
+        }
+        return personForPage;
     }
 
     @Override
@@ -94,5 +99,22 @@ public class PersonDAOImpl implements PersonDAO {
         ConnectToDB.getInstance().deletePerson(idInt);
 
     }
+
+    @Override
+    public int getPreviousPage(int currentPage) {
+        if (currentPage != 1) {
+            return currentPage - 1;
+        }
+        return 0;
+    }
+
+    @Override
+    public int getNextPage(int currentPage) {
+        if (currentPage != ConnectToDB.getInstance().getPersons().size() / 20 + 1) {
+            return currentPage + 1;
+        }
+        return 0;
+    }
+
 
 }

@@ -71,6 +71,12 @@
       <column name="idPerson" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <index name="unique_id" unique="true" columns="id"/>
     </table>
+    <table name="templates" schema="" catalog="contactlist" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="template" sqlType="VARCHAR" precision="400" scale="0" nullable="false" jdbcType="12"/>
+      <column name="templateName" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12"/>
+      <index name="unique_id" unique="true" columns="id"/>
+    </table>
     <table name="CHARACTER_SETS" schema="" catalog="information_schema" type="SYSTEM TABLE">
       <column name="CHARACTER_SET_NAME" sqlType="VARCHAR" precision="32" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
       <column name="DEFAULT_COLLATE_NAME" sqlType="VARCHAR" precision="32" scale="0" nullable="false" jdbcType="12" def="Jyc="/>

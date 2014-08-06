@@ -1,9 +1,11 @@
 package controller.command;
 
-import model.FilePerson;
+import logger.LoggerApplication;
+import model.filePerson.FilePerson;
 import model.person.Person;
 import model.person.PersonDAOImpl;
 import model.phone.Phone;
+import model.template.TemplateDAOImpl;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
@@ -21,7 +23,6 @@ import java.util.List;
  * Created by Margarita on 23.07.2014.
  */
 public class FormCorrectPersonCommand implements Command {
-    private static final String UPLOAD_DIRECTORY = "upload";
     private static final int THRESHOLD_SIZE = 1024 * 1024 * 3;  // 3MB
     private static final int MAX_FILE_SIZE = 1024 * 1024 * 40; // 40MB
     private static final int MAX_REQUEST_SIZE = 1024 * 1024 * 50; // 50MB
@@ -79,13 +80,13 @@ public class FormCorrectPersonCommand implements Command {
 
         List files = new ArrayList<FilePerson>();
         if (!ServletFileUpload.isMultipartContent(request)) {
-            System.out.println("Request does not contain upload data");
+            LoggerApplication.getInstance().setError("Request does not contain upload data");
         }
 
         // configures upload settings
         DiskFileItemFactory factory = new DiskFileItemFactory();
         factory.setSizeThreshold(THRESHOLD_SIZE);
-        factory.setRepository(new File(System.getProperty("java.io.tmpdir")));
+        factory.setRepository(new File(System.getProperty(RequestParams.bundle.getString("propertyRepository"))));
 //        factory.setRepository(new File("D:\\BSU\\iTechArt\\ContactList\\web\\image\person"));
 
         ServletFileUpload upload = new ServletFileUpload(factory);
@@ -96,7 +97,7 @@ public class FormCorrectPersonCommand implements Command {
 //        String uploadPath = request.getSession().getServletContext().getRealPath("")
 //                + File.separator + UPLOAD_DIRECTORY;
         // creates the directory if it does not exist
-       String uploadPath = "C:\\contactListImageFolder\\servlet";
+        String uploadPath = RequestParams.bundle.getString("uploadPath");
         File uploadDir = new File(uploadPath);
         if (!uploadDir.exists()) {
             uploadDir.mkdir();
@@ -112,7 +113,7 @@ public class FormCorrectPersonCommand implements Command {
                 FileItem item = (FileItem) iter.next();
                 // processes only fields that are not form fields
                 if (!item.isFormField()) {
-                    if (!item.getFieldName().equals("photoFile")) {
+                    if (!item.getFieldName().equals(RequestParams.PHOTO_FILE)) {
                         FilePerson filePerson = new FilePerson();
 
                         FileItem itemFileName = (FileItem) iter.next();
@@ -142,21 +143,22 @@ public class FormCorrectPersonCommand implements Command {
                         value = itemFileName.getString("UTF-8").trim();
                         filePerson.setComment(value);
                         files.add(filePerson);
-                    }
-                    else{
-                        String photoName =  new File(item.getName()).getName();
-                        Calendar cal = Calendar.getInstance();
-                        String photoHash = photoName + cal.getTime().toString();
-                        photoHash = Integer.toString(photoHash.hashCode());
-                        StringBuilder format = new StringBuilder();
-                        for (int i = photoName.length(); i > 0 && (photoName.charAt(i - 1) != '.'); i--) {
-                            format.insert(0, photoName.charAt(i - 1));
+                    } else {
+                        String photoName = new File(item.getName()).getName();
+                        if (!photoName.equals("")) {
+                            Calendar cal = Calendar.getInstance();
+                            String photoHash = photoName + cal.getTime().toString();
+                            photoHash = Integer.toString(photoHash.hashCode());
+                            StringBuilder format = new StringBuilder();
+                            for (int i = photoName.length(); i > 0 && (photoName.charAt(i - 1) != '.'); i--) {
+                                format.insert(0, photoName.charAt(i - 1));
+                            }
+                            String photoPath = uploadPath + File.separator + photoHash + "." + format.toString();
+                            File storeFile = new File(photoPath);
+                            // saves the file on disk
+                            item.write(storeFile);
+                            person.setPhotoPath(photoHash + "." + format.toString());
                         }
-                        String photoPath = uploadPath + File.separator + photoHash + "." + format.toString();
-                        File storeFile = new File(photoPath);
-                        // saves the file on disk
-                        item.write(storeFile);
-                        person.setPhotoPath(photoHash + "." + format.toString());
 
                     }
 
@@ -170,6 +172,11 @@ public class FormCorrectPersonCommand implements Command {
                             person.setId(Integer.parseInt(value));
                         }
 
+                    }
+                    if (fieldName.equals(RequestParams.PHOTO_PATH)) {
+                        if (person.getPhotoPath() == null) {
+                            person.setPhotoPath(value);
+                        }
                     }
                     if (fieldName.equals(RequestParams.SURNAME)) {
                         person.setSurname(value);
@@ -252,16 +259,30 @@ public class FormCorrectPersonCommand implements Command {
                     }
                 }
             }
-            request.setAttribute("message", "Upload has been done successfully!");
+            person.setPhone(phones);
+            person.setFile(files);
+            PersonDAOImpl.getInstance().correctPerson(person);
+
         } catch (Exception ex) {
-            request.setAttribute("message", "There was an error: " + ex.getMessage());
+            LoggerApplication.getInstance().setError(ex.getMessage());
+        } finally {
+            int goToPage = 1;
+            List personForPage = PersonDAOImpl.getInstance().getPersons(goToPage);
+            request.setAttribute(RequestParams.PERSONS, personForPage);
+            request.setAttribute(RequestParams.CURRENT_PAGE, goToPage);
+            int preciousPage = PersonDAOImpl.getInstance().getPreviousPage(goToPage);
+            int nextPage = PersonDAOImpl.getInstance().getNextPage(goToPage);
+            if (preciousPage != 0) {
+                request.setAttribute(RequestParams.PREVIOUS_PAGE, preciousPage);
+            }
+            if (nextPage != 0) {
+                request.setAttribute(RequestParams.NEXT_PAGE, nextPage);
+            }
+
+            List templates = TemplateDAOImpl.getInstance().getTemplate();
+            request.setAttribute(RequestParams.TEMPLATES, templates);
+            return RequestParams.PERSON_LIST_JSP;
         }
-        person.setPhone(phones);
-        person.setFile(files);
-        PersonDAOImpl.getInstance().correctPerson(person);
-        List persons = PersonDAOImpl.getInstance().getPersons();
-        request.setAttribute("persons", persons);
-        return RequestParams.PERSON_LIST_JSP;
 
 
     }

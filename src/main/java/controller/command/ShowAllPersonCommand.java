@@ -1,12 +1,12 @@
 package controller.command;
 
-import model.person.Person;
+import logger.LoggerApplication;
 import model.person.PersonDAOImpl;
+import model.template.TemplateDAOImpl;
 import param.RequestParams;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,20 +15,27 @@ import java.util.List;
 public class ShowAllPersonCommand implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        List persons = PersonDAOImpl.getInstance().getPersons();
-        int goToPage = Integer.parseInt(request.getParameter(RequestParams.GO_TO_PAGE));
-        List personForPage = new ArrayList<Person>();
-        for(int i = (goToPage - 1) * 20; i < goToPage * 20 && i < persons.size(); i++ ){
-            personForPage.add(persons.get(i));
+        int goToPage;
+        try {
+            goToPage = Integer.parseInt(request.getParameter(RequestParams.GO_TO_PAGE));
+        } catch (NumberFormatException e) {
+            goToPage = 1;
+            LoggerApplication.getInstance().setError("request without GO_TO_PAGE or have incorrect GO_TO_PAGE");
         }
-        request.setAttribute("persons", personForPage);
-        request.setAttribute("currentPage", goToPage);
-        if(goToPage != 1){
-            request.setAttribute("previousPage", goToPage - 1);
+        List personForPage = PersonDAOImpl.getInstance().getPersons(goToPage);
+        request.setAttribute(RequestParams.PERSONS, personForPage);
+        request.setAttribute(RequestParams.CURRENT_PAGE, goToPage);
+        int preciousPage = PersonDAOImpl.getInstance().getPreviousPage(goToPage);
+        int nextPage = PersonDAOImpl.getInstance().getNextPage(goToPage);
+        if (preciousPage != 0) {
+            request.setAttribute(RequestParams.PREVIOUS_PAGE, preciousPage);
         }
-        if(goToPage != persons.size()/20 + 1){
-            request.setAttribute("nextPage", goToPage + 1);
+        if (nextPage != 0) {
+            request.setAttribute(RequestParams.NEXT_PAGE, nextPage);
         }
+
+        List templates = TemplateDAOImpl.getInstance().getTemplate();
+        request.setAttribute(RequestParams.TEMPLATES, templates);
         return RequestParams.PERSON_LIST_JSP;
     }
 }

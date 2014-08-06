@@ -16,11 +16,11 @@ public class CreatePersonCommand implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         List countries = CountryDAOImpl.getInstance().getCountries();
-        request.setAttribute("countries", countries);
+        request.setAttribute(RequestParams.COUNTRIES, countries);
         List maritalStatuses = MaritalStatusDAOImpl.getInstance().getMaritalStatus();
-        request.setAttribute("maritalStatuses", maritalStatuses);
+        request.setAttribute(RequestParams.MARITAL_STATUSES, maritalStatuses);
         List companies = CompanyDAOImpl.getInstance().getCompanies();
-        request.setAttribute("companies", companies);
+        request.setAttribute(RequestParams.COMPANIES, companies);
         return RequestParams.CREATE_PERSON_JSP;
 
     }

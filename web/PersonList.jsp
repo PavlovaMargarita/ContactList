@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%--
   Created by IntelliJ IDEA.
   User: Margarita
@@ -15,11 +16,14 @@
     </title>
 </head>
 <body>
+<fmt:setLocale value="ru"/>
+<fmt:setBundle basename="property"/>
 <form method="post" action="${pageContext.request.contextPath}/servlet">
     <div align="right">
-        <button type="submit" class="standard" name="method" value="sendEmail">Послать e-mail</button>
-        <button type="submit" class="attention" name="method" value="deletePerson"> Удалить</button>
-        <button type="reset" class="attention" name="method" value="reset"> Отмена </button>
+        <button class="standard" type="button"><a href="#sendEmailForm" style="color:white" id="sendEmailPopup"><fmt:message key="sendEmail" /></a> </button>
+        <button type="submit" class="attention" name="method" value="deletePerson"> <fmt:message key="deletePerson" /></button>
+        <button type="submit" style="display: none;" name="method" value="sendEmail" id="send"></button>
+        <button type="reset" class="attention" name="method" value="reset"> <fmt:message key="cancel" /> </button>
     </div>
 
 
@@ -28,15 +32,17 @@
             <th>
 
             </th>
-            <th>Полное имя</th>
-            <th>Дата рождения</th>
-            <th>Адрес</th>
-            <th>Место работы</th>
+            <th><fmt:message key="fullName" /></th>
+            <th><fmt:message key="dateOfBirth" /></th>
+            <th><fmt:message key="address" /></th>
+            <th><fmt:message key="company" /></th>
         </tr>
         <!-- Table Header -->
         <c:forEach var="person" items="${persons}">
 
             <tr>
+                <input type="hidden" name="email" value="${person.email}"/>
+                <input type="hidden" name="id" value="${person.id}"/>
                 <th>
                     <div class="squaredThree">
                         <input type="checkbox"  name="checkPerson" value=${person.id}>
@@ -54,6 +60,38 @@
         </c:forEach>
 
     </table>
+    <a href="#x" class="overlay" id="sendEmailForm"></a>
+
+    <div class="popup">
+        <input id="personsIDForEmail" name="personsIDForEmail" type="hidden"/>
+            <div>
+                <label style="width: 100px;"><fmt:message key="whom" /></label>
+                <input type="text" id="emails" name="emails" value="" style="width: 300px;"/>
+            </div>
+            <div>
+                <label style="width: 100px;"><fmt:message key="subject" /></label>
+                <input type="text" id="subject" name="subject" value="" placeholder="<fmt:message key="enterSubject"/>" style="width: 300px;"/>
+            </div>
+            <div>
+                <label style="width: 100px;"><fmt:message key="template" /></label>
+                <select name="template" id="template" style="width: 300px;" onchange="changeTemplate(this)">
+                    <option value="none"></option>
+                    <c:forEach var="templateVar" items="${templates}">
+                        <option value="${templateVar.id}/${templateVar.template}">${templateVar.templateName}</option>
+                    </c:forEach>
+                </select>
+            </div>
+            <div>
+                <label style="width: 100px;"><fmt:message key="message"/></label>
+                <textarea class="textarea" id="message" name="message" value="" placeholder="<fmt:message key="enterMessage"/>"></textarea>
+            </div>
+            <button class="btn" id="popupSendEmailButton"><a href="#close">Отправить email </a></button>
+
+            <%--<button class="btn"  onclick="saveCorrectPhone()"> Сохранить </button>--%>
+
+            <a class="close" href="#close" id="closeID"></a>
+
+    </div>
 </form>
 <div class="tableForNavigation" align="right">
     <a href="/servlet?method=showAllPersons&goToPage=${previousPage}">${previousPage}</a>
@@ -62,6 +100,7 @@
 </div>
 
 
+<script type="text/javascript" src="js/jsForPersonList.js"></script>
 
 </body>
 </html>

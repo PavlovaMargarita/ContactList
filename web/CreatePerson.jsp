@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 <%--<!DOCTYPE html>--%>
 <jsp:include page="menu.jsp"/>
@@ -10,56 +11,54 @@
     </title>
 </head>
 <body>
+<fmt:setLocale value="ru"/>
+<fmt:setBundle basename="property"/>
+
 <form class="blocks" action="${pageContext.request.contextPath}/servlet?method=formCorrectPerson" method="post"
       enctype="multipart/form-data">
 <div class="wrapper">
 
     <input type="hidden" name="id" value="${person.id}"/>
-    <input type="file" name="photoFile" id="photoFileID" style="display: none" accept="image/*,image/jpeg"
-           onchange="onFileSelected(event)">
+    <input type="file" name="photoFile" id="photoFileID" style="display: none" accept="image/*,image/jpeg" onchange="onFileSelected(event)">
+    <input type="hidden" name="photoPath" value="${person.photoPath}"/>
 			<span style="position:static;">
 				<a href="#selectImageForm" id="#selectImage">
-                    <c:set var="photoPath" value="image/" scope="page"/>
-                    <c:set var="photoPath" value="${photoPath}${person.photoPath}" scope="page"/>
-
-                        <img id="photoPerson" src="http://localhost/images/1.jpg"/>
-                    <%--image/silhouette.jpg--%>
+                        <img id="photoPerson" src="${pageContext.request.contextPath}/images/${person.photoPath}"/>
                 </a>
 			<p>
-                <label class="photo">Фамилия</label>
+                <label class="photo"><fmt:message key="surname"/> </label>
+                <input type="text" class="text" name="surname" id="surname" value="${requestScope.person.surname}" placeholder="<fmt:message key="enterSurname"/>"/>
+            </p>
+			<p>
+                <label class="photo"><fmt:message key="name"/></label>
+                <input type="text" class="text" name="name" id="name" value="${requestScope.person.name}" placeholder="<fmt:message key="enterName"/>"/>
+            </p>
+			<p>
+                <label class="photo"> <fmt:message key="patronymic"/></label>
+                <input type="text" class="text" name="patronymic" id="patronymic" value="${requestScope.person.patronymic}" placeholder="<fmt:message key="enterPatronymic"/>"/>
+            </p>
 
-                <input type="text" class="text" name="surname" id="surname" value="${requestScope.person.surname}" placeholder="Введите фамилию"/>
-            </p>
 			<p>
-                <label class="photo">Имя</label>
-                <input type="text" class="text" name="name" id="name" value="${requestScope.person.name}" placeholder="Введите имя"/>
-            </p>
-			<p>
-                <label class="photo"> Отчество</label>
-                <input type="text" class="text" name="patronymic" id="patronymic" value="${requestScope.person.patronymic}" placeholder="Введите отчество"/>
-            </p>
-
-			<p>
-                <label class="photo">Дата рождения</label>
-                <input type="text" class="text" name="dateOfBirth" id="dateOfBirth" value="${requestScope.person.dateOfBirth}" placeholder="Введите дату рождения(дд-мм-гггг)"/>
+                <label class="photo"><fmt:message key="dateOfBirth"/></label>
+                <input type="text" class="text" name="dateOfBirth" id="dateOfBirth" value="${requestScope.person.dateOfBirth}" placeholder="<fmt:message key="enterDateOfBirth"/>)"/>
             </p>
 			</span>
 
     <p>
-        <label>Пол</label>
+        <label><fmt:message key="sex"/></label>
         <font color=#666>
             <c:choose>
                 <c:when test="${requestScope.person.sex == 'f'}">
-                    <input type="radio" name="sex" value="f" checked/> Женский
-                    <input type="radio" name="sex" value="m" class="align"/> Мужской
+                    <input type="radio" name="sex" value="f" checked/> <fmt:message key="female"/>
+                    <input type="radio" name="sex" value="m" class="align"/> <fmt:message key="male"/>
                 </c:when>
                 <c:when test="${requestScope.person.sex == 'm'}">
-                    <input type="radio" name="sex" value="f"/> Женский
-                    <input type="radio" name="sex" class="align" value="m" checked/> Мужской
+                    <input type="radio" name="sex" value="f"/> <fmt:message key="female"/>
+                    <input type="radio" name="sex" class="align" value="m" checked/> <fmt:message key="male"/>
                 </c:when>
                 <c:when test="${requestScope.person == NULL}">
-                    <input type="radio" name="sex" value="f" checked/> Женский
-                    <input type="radio" name="sex" class="align" value="m"/> Мужской
+                    <input type="radio" name="sex" value="f" checked/> <fmt:message key="female"/>
+                    <input type="radio" name="sex" class="align" value="m"/> <fmt:message key="male"/>
                 </c:when>
             </c:choose>
 
@@ -67,12 +66,12 @@
     </p>
 
     <p>
-        <label>Гражданство</label>
-        <input type="text" class="text" name="nationality" id="nationality" value="${requestScope.person.nationality}" placeholder="Введите национальность"/>
+        <label><fmt:message key="nationality"/></label>
+        <input type="text" class="text" name="nationality" id="nationality" value="${requestScope.person.nationality}" placeholder="<fmt:message key="enterNationality"/>"/>
     </p>
 
     <p>
-        <label>Семейное положение</label>
+        <label><fmt:message key="maritalStatus"/></label>
         <%--<input type="text" class="text" fileName="maritalStatus" value="${requestScope.person.maritalStatus}"/>--%>
         <select name="maritalStatus">
             <c:forEach var="maritalStatus" items="${maritalStatuses}">
@@ -90,17 +89,17 @@
     </p>
 
     <p>
-        <label>Web site</label>
-        <input type="text" class="text" name="webSite" id="webSite" value="${requestScope.person.webSite}" placeholder="Введите web site"/>
+        <label><fmt:message key="webSite"/></label>
+        <input type="text" class="text" name="webSite" id="webSite" value="${requestScope.person.webSite}" placeholder="<fmt:message key="enterWebSite"/>"/>
     </p>
 
     <p>
-        <label>E-mail:</label>
-        <input type="text" class="text" name="email" id="email" value="${requestScope.person.email}" placeholder="Введите email"/>
+        <label><fmt:message key="email"/></label>
+        <input type="text" class="text" name="email" id="email" value="${requestScope.person.email}" placeholder="<fmt:message key="enterEmail"/>"/>
     </p>
 
     <p>
-        <label>Место работы</label>
+        <label><fmt:message key="company"/></label>
         <%--<input type="text" class="text" fileName="company" value="${requestScope.person.company}"/>--%>
         <select name="company">
             <c:forEach var="company" items="${companies}">
@@ -119,11 +118,11 @@
 
     <p>
 
-    <h3 class="textFont">Адрес: </h3>
+    <h3 class="textFont"><fmt:message key="address"/> </h3>
     </p>
 
     <p>
-        <label class="live">Страна</label>
+        <label class="live"><fmt:message key="country"/></label>
         <%--<input type="text" class="text" fileName="country" value="${requestScope.person.country}"/>--%>
         <select name="country">
             <c:forEach var="country" items="${countries}">
@@ -141,48 +140,48 @@
     </p>
 
     <p>
-        <label class="live">Город</label>
-        <input type="text" class="text" name="city" id="city" value="${requestScope.person.city}" placeholder="Введите город"/>
+        <label class="live"><fmt:message key="city"/></label>
+        <input type="text" class="text" name="city" id="city" value="${requestScope.person.city}" placeholder="<fmt:message key="enterCity"/>"/>
     </p>
 
     <p>
-        <label class="live">Улица</label>
-        <input type="text" class="text" name="street" id="street" value="${requestScope.person.street}" placeholder="Введите улицу"/>
+        <label class="live"><fmt:message key="street"/></label>
+        <input type="text" class="text" name="street" id="street" value="${requestScope.person.street}" placeholder="<fmt:message key="enterStreet"/>"/>
     </p>
 
     <p>
-        <label class="live">Дом</label>
-        <input type="text" class="text" name="home" id="home" value="${requestScope.person.home}" placeholder="Введите номер дома"/>
+        <label class="live"><fmt:message key="home"/></label>
+        <input type="text" class="text" name="home" id="home" value="${requestScope.person.home}" placeholder="<fmt:message key="enterHome"/>"/>
     </p>
 
     <p>
-        <label class="live">Квартира</label>
-        <input type="text" class="text" name="flat" id="flat" value="${requestScope.person.flat}" placeholder="Введите номер квартиры"/>
+        <label class="live"><fmt:message key="flat"/></label>
+        <input type="text" class="text" name="flat" id="flat" value="${requestScope.person.flat}" placeholder="<fmt:message key="enterFlat"/>"/>
     </p>
 
     <p>
-        <label class="live">Индекс</label>
-        <input type="text" class="text" name="index" id="index" value="${requestScope.person.index}" placeholder="Введите индекс"/>
+        <label class="live"><fmt:message key="index"/></label>
+        <input type="text" class="text" name="index" id="index" value="${requestScope.person.index}" placeholder="<fmt:message key="enterIndex"/>"/>
     </p>
 </div>
 <br/>
 <br/>
 
-<h2 align="center" class="textFont">Список контактных телефонов </h2>
+<h2 align="center" class="textFont"><fmt:message key="phoneList"/></h2>
 
 <div align="right">
-    <button class="standard" type="button"><a href="#addContactForm" style="color:white">Добавить контакт </a>
+    <button class="standard" type="button"><a href="#addContactForm" style="color:white"><fmt:message key="addPhone"/> </a>
     </button>
-    <button class="attention" type="button" onclick="deletePhone()"> Удалить</button>
+    <button class="attention" type="button" onclick="deletePhone()"> <fmt:message key="deletePhone"/></button>
 </div>
 
 
 <table class="simple-little-table" cellspacing='0' id="phoneTable">
     <tr>
         <th></th>
-        <th>Телефонный номер</th>
-        <th>Тип номера</th>
-        <th>Комментарий</th>
+        <th><fmt:message key="phoneNumber"/></th>
+        <th><fmt:message key="phoneType"/></th>
+        <th><fmt:message key="comment"/></th>
         <th></th>
     </tr>
     <!-- Table Header -->
@@ -203,8 +202,7 @@
             <td>${phone.comment}</td>
             <td>
                 <button class="standard" type="button"><span><a href="#correctContactForm"
-                                                                onclick="openCorrectPhone(this)" style="color:white">Редактировать
-                    контакт </a></span></button>
+                                                                onclick="openCorrectPhone(this)" style="color:white"><fmt:message key="correctPhone"/></a></span></button>
             </td>
         </tr>
     </c:forEach>
@@ -215,20 +213,20 @@
 <br/>
 <br/>
 
-<h2 align="center" class="textFont">Список присоединений </h2>
+<h2 align="center" class="textFont"><fmt:message key="fileList"/></h2>
 
 <div align="right">
-    <button class="standard" type="button"><a href="#addAccessionForm" style="color:white">Добавить присоединение </a>
+    <button class="standard" type="button"><a href="#addAccessionForm" style="color:white"><fmt:message key="addFile"/> </a>
     </button>
-    <button class="attention" type="button" id="deleteFile"> Удалить</button>
+    <button class="attention" type="button" id="deleteFile"><fmt:message key="deleteFile"/></button>
 </div>
 
 <table class="simple-little-table" cellspacing='0' id="fileTable">
     <tr>
         <th></th>
-        <th>Имя файла присоединения</th>
-        <th>Дата загрузки</th>
-        <th>Комментарий</th>
+        <th><fmt:message key="fileName"/></th>
+        <th><fmt:message key="loadDate"/></th>
+        <th><fmt:message key="comment"/></th>
         <th></th>
     </tr>
     <!-- Table Header -->
@@ -249,8 +247,7 @@
             <td>${file.comment}</td>
             <td>
                 <button class="standard" type="button"><span><a href="#correctAccessionForm"
-                                                                onclick="openCorrectFile(this)" style="color:white">Редактировать
-                    файл </a></span></button>
+                                                                onclick="openCorrectFile(this)" style="color:white"><fmt:message key="correctFile"/></a></span></button>
             </td>
         </tr>
     </c:forEach>
@@ -259,7 +256,7 @@
 
 <p>
     <label>&nbsp;</label>
-    <button type="submit" id="save" class="standard"> Сохранить</button>
+    <button type="submit" id="save" class="standard"> <fmt:message key="save"/></button>
 </p>
 </form>
 <!-- Форма для модального окна добавить контакт -->
@@ -267,27 +264,27 @@
 
 <div class="popup">
     <div>
-        <label>Код страны</label>
-        <input type="text" id="countryCodeIDAdd" value="" placeholder="Введите код страны"/>
+        <label><fmt:message key="countryCode"/></label>
+        <input type="text" id="countryCodeIDAdd" value="" placeholder="<fmt:message key="enterCountryCode"/>"/>
     </div>
     <div>
-        <label>Код оператора</label>
-        <input type="text" id="operatorCodeIDAdd" value="" placeholder="Введите код оператора"/>
+        <label><fmt:message key="operatorCode"/></label>
+        <input type="text" id="operatorCodeIDAdd" value="" placeholder="<fmt:message key="enterOperatorCode"/>"/>
     </div>
     <div>
-        <label>Телефонный номер</label>
-        <input type="text" id="phoneNumberIDAdd" value="" placeholder="Введите номер телефона"/>
+        <label><fmt:message key="phoneNumber"/></label>
+        <input type="text" id="phoneNumberIDAdd" value="" placeholder="<fmt:message key="enterPhoneNumber"/>"/>
     </div>
     <div>
-        <label>Тип номера</label>
-        <input type="text" id="phoneTypeIDAdd" value="" placeholder="Введите тип номера"/>
+        <label><fmt:message key="phoneType"/></label>
+        <input type="text" id="phoneTypeIDAdd" value="" placeholder="<fmt:message key="enterPhoneType"/>"/>
     </div>
     <div>
-        <label>Комментарий</label>
-        <input type="text" id="commentPhoneIDAdd" value="" placeholder="Добавьте комментарий"/>
+        <label><fmt:message key="comment"/></label>
+        <input type="text" id="commentPhoneIDAdd" value="" placeholder="<fmt:message key="enterComment"/>"/>
     </div>
 
-    <button class="btn" id="saveAddPhone"><a href="#close">Сохранить </a></button>
+    <button class="btn" id="saveAddPhone"><a href="#close"><fmt:message key="save"/></a></button>
     <a class="close" href="#close"></a>
 </div>
 
@@ -297,27 +294,27 @@
 
 <div class="popup">
     <div>
-        <label>Код страны</label>
-        <input type="text" id="countryCodeIDCorrect" name="countryCode" value="" placeholder="Введите код страны"/>
+        <label><fmt:message key="countryCode"/></label>
+        <input type="text" id="countryCodeIDCorrect" name="countryCode" value="" placeholder="<fmt:message key="enterCountryCode"/>"/>
     </div>
     <div>
-        <label>Код оператора</label>
-        <input type="text" id="operatorCodeIDCorrect" name="operatorCode" value="" placeholder="Введите код оператора"/>
+        <label><fmt:message key="operatorCode"/></label>
+        <input type="text" id="operatorCodeIDCorrect" name="operatorCode" value="" placeholder="<fmt:message key="enterOperatorCode"/>"/>
     </div>
     <div>
-        <label>Телефонный номер</label>
-        <input type="text" id="phoneNumberIDCorrect" name="phoneNumber" value="" placeholder="Введите номер телефона"/>
+        <label><fmt:message key="phoneNumber"/></label>
+        <input type="text" id="phoneNumberIDCorrect" name="phoneNumber" value="" placeholder="<fmt:message key="enterPhoneNumber"/>"/>
     </div>
     <div>
-        <label>Тип номера</label>
-        <input type="text" id="phoneTypeIDCorrect" name="phoneType" value="" placeholder="Введите тип номера"/>
+        <label><fmt:message key="phoneType"/></label>
+        <input type="text" id="phoneTypeIDCorrect" name="phoneType" value="" placeholder="<fmt:message key="enterPhoneType"/>"/>
     </div>
     <div>
-        <label>Комментарий</label>
-        <input type="text" id="commentPhoneIDCorrect" name="comment" value="" placeholder="Добавьте комментарий"/>
+        <label><fmt:message key="comment"/></label>
+        <input type="text" id="commentPhoneIDCorrect" name="comment" value="" placeholder="<fmt:message key="enterComment"/>"/>
     </div>
     <input type="hidden" id="rowCountPhoneCorrect" value=""/>
-    <button class="btn" id="saveCorrectPhone"><a href="#close">Сохранить </a></button>
+    <button class="btn" id="saveCorrectPhone"><a href="#close"><fmt:message key="save"/> </a></button>
 
     <%--<button class="btn"  onclick="saveCorrectPhone()"> Сохранить </button>--%>
     <a class="close" href="#close"></a>
@@ -329,14 +326,14 @@
 
 <div class="popup">
     <div>
-        <label>Имя файла</label>
-        <button type="button" id="addFileButton"> Добавить файл</button>
+        <label><fmt:message key="fileName"/></label>
+        <button type="button" id="addFileButton"> <fmt:message key="addFile"/></button>
     </div>
     <div>
-        <label>Комментарий</label>
-        <input type="text" id="commentFileIDAdd" value="" placeholder="Добавьте комментарий"/>
+        <label><fmt:message key="comment"/></label>
+        <input type="text" id="commentFileIDAdd" value="" placeholder="<fmt:message key="enterComment"/>"/>
     </div>
-    <button class="btn" id="addFile"><a href="#close">Сохранить </a></button>
+    <button class="btn" id="addFile"><a href="#close"><fmt:message key="save"/></a></button>
     <a class="close" href="#close"></a>
 </div>
 <!-- Форма №2 для модального окна -->
@@ -344,18 +341,17 @@
 
 <div class="popup">
     <div>
-        <label>Имя файла</label>
-        <input type="text" id="fileNameIDCorrect" value=""/>
+        <label><fmt:message key="fileName" /></label>
+        <input type="text" id="fileNameIDCorrect" value="" placeholder="<fmt:message key="enterFileName"/>"/>
     </div>
     <div>
-        <label>Комментарий</label>
-        <input type="text" id="commentFileIDCorrect" value=""/>
+        <label><fmt:message key="comment"/></label>
+        <input type="text" id="commentFileIDCorrect" value="" placeholder="<fmt:message key="enterComment"/>"/>
     </div>
-    <input type="hidden" id="rowCountFileCorrect" value="" placeholder="Добавьте комментарий"/>
-    <button class="btn" id="saveCorrectFileButton"><a href="#close">Сохранить </a></button>
+    <input type="hidden" id="rowCountFileCorrect" value=""/>
+    <button class="btn" id="saveCorrectFileButton"><a href="#close"><fmt:message key="save"/></a></button>
     <a class="close" href="#close"></a>
 </div>
-
 
 <!-- Table Row -->
 
@@ -364,9 +360,9 @@
 
 <div class="popup">
     <p>
-        <button type="button" id="selectPhotoButton"> Выбрать фото</button>
+        <button type="button" id="selectPhotoButton"> <fmt:message key="selectPhoto"/></button>
     </p>
-    <button class="btn" id="loadPhotoButton"><a href="#close">Сохранить </a></button>
+    <button class="btn" id="loadPhotoButton"><a href="#close"><fmt:message key="save"/> </a></button>
     <a class="close" href="#close"></a>
 </div>
 

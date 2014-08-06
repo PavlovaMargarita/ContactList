@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 <jsp:include page="menu.jsp"/>
 <html>
@@ -8,40 +9,42 @@
     </title>
 </head>
 <body>
+<fmt:setLocale value="ru"/>
+<fmt:setBundle basename="property"/>
 <div class="wrapper">
     <form id="form" class="blocks" action="${pageContext.request.contextPath}/servlet?method=formSearchPerson" method="post">
         <p>
-            <label>Фамилия</label>
-            <input type="text" class="text" name="surname" placeholder="Введите фамилию"/>
+            <label><fmt:message key="surname"/></label>
+            <input type="text" class="text" name="surname" placeholder="<fmt:message key="enterSurname"/>"/>
         </p>
         <p>
-            <label>Имя</label>
-            <input type="text" class="text" name="name"placeholder="Введите имя" />
+            <label><fmt:message key="name"/></label>
+            <input type="text" class="text" name="name"placeholder="<fmt:message key="enterName"/>" />
         </p>
         <p>
-            <label>Отчество</label>
-            <input type="text" class="text" name="patronymic"  placeholder="Введите отчество"/>
+            <label><fmt:message key="patronymic"/></label>
+            <input type="text" class="text" name="patronymic"  placeholder="<fmt:message key="enterPatronymic"/>"/>
         </p>
 
         <p>
-            <label>Возраст</label>
-            <input type="text" class="text" name="age" id="age" placeholder="Введите полное количество лет"/>
-            <input type="checkbox" name="ageRange" value="moreThan"> и старше
-            <input type="checkbox" name="ageRange" value="lessThan"> и младше
+            <label><fmt:message key="age"/></label>
+            <input type="text" class="text" name="age" id="age" placeholder="<fmt:message key="enterAge"/>"/>
+            <input type="checkbox" name="ageRange" value="moreThan"> <fmt:message key="moreThan"/>
+            <input type="checkbox" name="ageRange" value="lessThan"> <fmt:message key="lessThan"/>
         </p>
         <p>
-            <label>Пол</label>
+            <label><fmt:message key="sex"/></label>
             <font color=#666>
-                <input type="radio" name="sex" value="f" checked/> Женский
-                <input type="radio" name="sex" value="m"/> Мужской
+                <input type="radio" name="sex" value="f" checked/> <fmt:message key="female"/>
+                <input type="radio" name="sex" value="m"/> <fmt:message key="male"/>
             </font>
         </p>
         <p>
-            <label>Гражданство</label>
-            <input type="text" class="text" name="nationality"  placeholder="Введите гражданство"/>
+            <label><fmt:message key="nationality"/></label>
+            <input type="text" class="text" name="nationality"  placeholder="<fmt:message key="enterNationality"/>"/>
         </p>
         <p>
-            <label>Семейное положение</label>
+            <label><fmt:message key="maritalStatus"/></label>
             <select name="maritalStatus">
                 <option value=""></option>
                 <c:forEach var="maritalStatus" items="${maritalStatuses}">
@@ -51,7 +54,7 @@
         </p>
 
         <p>
-            <label>Страна</label>
+            <label><fmt:message key="country"/></label>
             <%--<input type="text" class="text" fileName="country" />--%>
             <select name="country">
                 <option value=""></option>
@@ -64,30 +67,30 @@
 
 
         <p>
-            <label>Город</label>
-            <input type="text" class="text" name="city" placeholder="Введите город"/>
+            <label><fmt:message key="city"/></label>
+            <input type="text" class="text" name="city" placeholder="<fmt:message key="enterCity"/>"/>
         </p>
         <p>
-            <label >Улица</label>
-            <input type="text" class="text" name="street" placeholder="Введите улицу" />
+            <label ><fmt:message key="street"/></label>
+            <input type="text" class="text" name="street" placeholder="<fmt:message key="enterStreet"/>" />
         </p>
         <p>
-            <label >Дом</label>
-            <input type="text" class="text" name="home" id="home" placeholder="Введите номер дома"/>
+            <label ><fmt:message key="home"/></label>
+            <input type="text" class="text" name="home" id="home" placeholder="<fmt:message key="enterHome"/>"/>
         </p>
         <p>
-            <label >Квартира</label>
-            <input type="text" class="text" name="flat" id="flat" placeholder="Введите номер квартиры"/>
+            <label ><fmt:message key="flat"/></label>
+            <input type="text" class="text" name="flat" id="flat" placeholder="<fmt:message key="enterFlat"/>"/>
         </p>
 
         <p>
-            <label >Индекс</label>
-            <input type="text" class="text" name="index" placeholder="Введите индекс"/>
+            <label ><fmt:message key="index"/></label>
+            <input type="text" class="text" name="index" placeholder="<fmt:message key="enterIndex"/>"/>
         </p>
 
         <p>
             <label>&nbsp;</label>
-            <button type="submit" class="standard"> Искать </button>
+            <button type="submit" class="standard"> <fmt:message key="search"/> </button>
         </p>
     </form>
 </div>

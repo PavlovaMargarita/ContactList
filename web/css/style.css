@@ -263,8 +263,7 @@ h2.textFont {
 /*outline: none;*/
 /*}*/
 
-.text,
-.textarea {
+.text {
 
     height: 4%;
     border: 1px solid #ddd;
@@ -490,6 +489,20 @@ select{
     font-size: 100%;
     color:#666;
     line-height: 0%;
+    word-spacing: 0.25em;
+    text-indent: 2%;
+}
+
+.textarea {
+    height: 10em;
+    width: 100%;
+    border: 1px solid #ddd;
+    color: #333;
+    position: relative;
+    z-index: 2;
+    font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
+    font-size: 100%;
+    color:#666;
     word-spacing: 0.25em;
     text-indent: 2%;
 }

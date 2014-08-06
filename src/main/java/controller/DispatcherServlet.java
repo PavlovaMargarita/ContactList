@@ -1,6 +1,7 @@
 package controller;
 
 import controller.command.*;
+import logger.LoggerApplication;
 import param.RequestParams;
 
 import javax.servlet.ServletConfig;
@@ -19,10 +20,12 @@ import java.util.Map;
 public class DispatcherServlet extends HttpServlet {
     private Map<String, Command> commandMap;
 
-    @Override
-    public void init(ServletConfig config){
 
-        commandMap = new HashMap<String,Command>();
+    @Override
+    public void init(ServletConfig config) {
+
+        LoggerApplication.getInstance().setConfig(config);
+        commandMap = new HashMap<String, Command>();
         commandMap.put(RequestParams.CORRECT_PERSON, new CorrectPersonCommand());
         commandMap.put(RequestParams.CREATE_PERSON, new CreatePersonCommand());
         commandMap.put(RequestParams.FORM_CORRECT_PERSON, new FormCorrectPersonCommand());
@@ -30,19 +33,28 @@ public class DispatcherServlet extends HttpServlet {
         commandMap.put(RequestParams.FORM_SEARCH_PERSON, new FormSearchPersonCommand());
         commandMap.put(RequestParams.DELETE_PERSON, new DeletePersonCommand());
         commandMap.put(RequestParams.SEARCH_PERSON, new SearchContactCommand());
+        commandMap.put(RequestParams.SEND_EMAIL, new SendEmailCommand());
     }
+
     @Override
     public void service(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
         request.setCharacterEncoding("UTF-8");
         String method = request.getParameter(RequestParams.METHOD);
         Command command = commandMap.get(method);
+        if (command == null || method == null) {
+            LoggerApplication.getInstance().setError("unknown method");
+            method = RequestParams.SHOW_ALL_PERSONS;
+            command = commandMap.get(method);
+            LoggerApplication.getInstance().setError("request without METHOD");
+        }
+
         String page = command.execute(request, response);
         try {
             request.getRequestDispatcher(page).forward(request, response);
         } catch (ServletException e) {
-            e.printStackTrace();
+            LoggerApplication.getInstance().setError(e.getMessage());
         } catch (IOException e) {
-            e.printStackTrace();
+            LoggerApplication.getInstance().setError(e.getMessage());
         }
     }
 }

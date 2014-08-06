@@ -1,4 +1,4 @@
-package model;
+package model.filePerson;
 
 /**
  * Created by Margarita on 31.07.2014.

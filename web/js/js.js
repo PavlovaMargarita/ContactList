@@ -123,7 +123,7 @@ document.getElementById('saveAddPhone').onclick = function(){
     elementButton.className = "standard";
     elementButton.type = "button";
     var elementSpan = document.createElement("span");
-    elementSpan.innerHTML = '<a href="#correctContactForm" onclick="openCorrectPhone(this)" style="color:white"> Редактировать контакт </a> ';
+    elementSpan.innerHTML = '<a href="#correctContactForm" onclick="openCorrectPhone(this)" style="color:white"> Редактировать телефон</a> ';
     elementButton.appendChild(elementSpan);
     cellButton.appendChild(elementButton);
 }
@@ -212,7 +212,7 @@ document.getElementById('addFile').onclick = function(){
     elementButton.className = "standard";
     elementButton.type = "button";
     var elementSpan = document.createElement("span");
-    elementSpan.innerHTML = '<a href="#correctAccessionForm" onclick="openCorrectFile(this)" style="color:white"> Редактировать контакт </a>';
+    elementSpan.innerHTML = '<a href="#correctAccessionForm" onclick="openCorrectFile(this)" style="color:white"> Редактировать файл </a>';
     elementButton.appendChild(elementSpan);
     cellButton.appendChild(elementButton);
 

@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
   <artifact type="exploded-war" name="ContactList:war exploded">
-    <output-path>$PROJECT_DIR$/out/artifacts/ContactList_war_exploded</output-path>
+    <output-path>$PROJECT_DIR$/target/Contact List</output-path>
     <root id="root">
       <element id="javaee-facet-resources" facet="ContactList/web/Web" />
       <element id="directory" name="WEB-INF">
@@ -8,10 +8,22 @@
           <element id="module-output" name="ContactList" />
         </element>
         <element id="directory" name="lib">
-          <element id="library" level="project" name="Maven: mysql:mysql-connector-java:5.1.6" />
           <element id="library" level="project" name="Maven: javax.servlet:jstl:1.2" />
+          <element id="library" level="project" name="Maven: mysql:mysql-connector-java:5.1.6" />
           <element id="library" level="project" name="Maven: commons-fileupload:commons-fileupload:1.3.1" />
           <element id="library" level="project" name="Maven: commons-io:commons-io:2.2" />
+          <element id="library" level="project" name="Maven: javax.mail:mail:1.4.3" />
+          <element id="library" level="project" name="Maven: javax.activation:activation:1.1" />
+          <element id="library" level="project" name="Maven: org.antlr:antlr-complete:3.5.2" />
+          <element id="library" level="project" name="Maven: org.antlr:antlr:3.5.2" />
+          <element id="library" level="project" name="Maven: org.antlr:antlr-runtime:3.5.2" />
+          <element id="library" level="project" name="Maven: org.antlr:ST4:4.0.8" />
+          <element id="library" level="project" name="Maven: org.antlr:gunit:3.5.2" />
+          <element id="library" level="project" name="Maven: junit:junit:4.10" />
+          <element id="library" level="project" name="Maven: org.hamcrest:hamcrest-core:1.1" />
+          <element id="library" level="project" name="Maven: org.antlr:stringtemplate:3.2.1" />
+          <element id="library" level="project" name="Maven: antlr:antlr:2.7.7" />
+          <element id="library" level="project" name="Maven: log4j:log4j:1.2.17" />
         </element>
       </element>
     </root>

@@ -1,10 +1,13 @@
 package model;
 
+import logger.LoggerApplication;
 import model.company.Company;
 import model.country.Country;
+import model.filePerson.FilePerson;
 import model.maritalStatus.MaritalStatus;
 import model.person.Person;
 import model.phone.Phone;
+import model.template.Template;
 import param.RequestParams;
 
 import java.sql.*;
@@ -81,11 +84,14 @@ public class ConnectToDB {
             resultFile.close();
             statement.close();
             connect.close();
+            LoggerApplication.getInstance().setInfo("get person by id");
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            LoggerApplication.getInstance().setError(e.getMessage());
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            LoggerApplication.getInstance().setError(e.getMessage());
+        }catch (IndexOutOfBoundsException e){
+            return null;
         }
         return person;
     }
@@ -108,11 +114,11 @@ public class ConnectToDB {
             resultPerson.close();
             statement.close();
             connect.close();
-
+            LoggerApplication.getInstance().setInfo("get persons");
         } catch (SQLException e) {
-            e.printStackTrace();
+            LoggerApplication.getInstance().setError(e.getMessage());
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            LoggerApplication.getInstance().setError(e.getMessage());
         }
         return persons;
     }
@@ -120,7 +126,7 @@ public class ConnectToDB {
     public void correctPerson(Person person, String task) {
         String insertPerson = "insert into persons(surname, name, patronymic, dateOfBirth, sex, nationality," +
                 "maritalStatus, webSite, email, company, country, city, street, home, flat, cityIndex, photoPath) " +
-                "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         String correctPerson = "update persons set surname = ?, name = ?, patronymic = ?," +
                 "dateOfBirth = ?, sex = ?, nationality = ?, maritalStatus = ?," +
                 "webSite = ?, email = ?, company = ?, country = ?, city = ?, street = ?," +
@@ -214,11 +220,12 @@ public class ConnectToDB {
 
             statement.close();
             connect.close();
+            LoggerApplication.getInstance().setInfo("correct person");
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            LoggerApplication.getInstance().setError(e.getMessage());
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            LoggerApplication.getInstance().setError(e.getMessage());
         }
     }
 
@@ -309,11 +316,12 @@ public class ConnectToDB {
             }
             statement.close();
             connect.close();
+            LoggerApplication.getInstance().setInfo("delete persons");
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            LoggerApplication.getInstance().setError(e.getMessage());
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            LoggerApplication.getInstance().setError(e.getMessage());
         }
 
     }
@@ -351,7 +359,7 @@ public class ConnectToDB {
                 persons.add(person);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            LoggerApplication.getInstance().setError(e.getMessage());
         }
     }
 
@@ -372,11 +380,12 @@ public class ConnectToDB {
             }
             statement.close();
             connect.close();
+            LoggerApplication.getInstance().setInfo("select country");
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            LoggerApplication.getInstance().setError(e.getMessage());
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            LoggerApplication.getInstance().setError(e.getMessage());
         }
         return countries;
     }
@@ -398,11 +407,11 @@ public class ConnectToDB {
             }
             statement.close();
             connect.close();
-
+            LoggerApplication.getInstance().setInfo("select marital status");
         } catch (SQLException e) {
-            e.printStackTrace();
+            LoggerApplication.getInstance().setError(e.getMessage());
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            LoggerApplication.getInstance().setError(e.getMessage());
         }
         return maritalStatuses;
     }
@@ -424,12 +433,40 @@ public class ConnectToDB {
             }
             statement.close();
             connect.close();
-
+            LoggerApplication.getInstance().setInfo("select company");
         } catch (SQLException e) {
-            e.printStackTrace();
+            LoggerApplication.getInstance().setError(e.getMessage());
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            LoggerApplication.getInstance().setError(e.getMessage());
         }
         return companies;
+    }
+
+    public List getTemplates(){
+        List templates = new ArrayList<Template>();
+        String selectTemplate = "select * from templates";
+        try {
+            Class.forName(RequestParams.bundle.getString("urlDriver"));
+            Connection connect = DriverManager.getConnection(RequestParams.bundle.getString("urlDB"),
+                    RequestParams.bundle.getString("userDB"), RequestParams.bundle.getString("passwordDB"));
+            Statement statement = connect.createStatement();
+            ResultSet resultTemplate = statement.executeQuery(new String(selectTemplate));
+            while (resultTemplate.next()) {
+                Template template = new Template();
+                template.setId(resultTemplate.getInt(RequestParams.ID));
+                template.setTemplate(resultTemplate.getString(RequestParams.TEMPLATE));
+                template.setTemplateName(resultTemplate.getString(RequestParams.TEMPLATE_NAME));
+                templates.add(template);
+            }
+            statement.close();
+            connect.close();
+            LoggerApplication.getInstance().setInfo("select template");
+        } catch (SQLException e) {
+            LoggerApplication.getInstance().setError(e.getMessage());
+        } catch (ClassNotFoundException e) {
+            LoggerApplication.getInstance().setError(e.getMessage());
+        }
+        return templates;
+
     }
 }

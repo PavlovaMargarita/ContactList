@@ -28,6 +28,7 @@ public class RequestParams {
     public static final String FLAT = "flat";
     public static final String INDEX = "index";
     public static final String PHOTO_PATH = "photoPath";
+    public static final String PHOTO_FILE = "photoFile";
     public static final String CITY_INDEX = "cityIndex";
     public static final String PERSON_LIST_JSP = "PersonList.jsp";
     public static final String CREATE_PERSON_JSP = "CreatePerson.jsp";
@@ -59,5 +60,26 @@ public class RequestParams {
     public static final String FILE_DATE = "fileDate";
     public static final String COMMENT_FILE = "commentFile";
     public static final String GO_TO_PAGE = "goToPage";
+    public static final String SEND_EMAIL = "sendEmail";
+    public static final String TEMPLATE = "template";
+    public static final String TEMPLATE_NAME = "templateName";
+    public static final String EMAILS = "emails";
+    public static final String SUBJECT = "subject";
+    public static final String MESSAGE = "message";
+    public static final String PERSONS_ID_FOR_EMAIL = "personsIDForEmail";
+    public static final String PERSON = "person";
+    public static final String PERSONS = "persons";
+    public static final String COMPANIES = "companies";
+    public static final String COUNTRIES = "countries";
+    public static final String MARITAL_STATUSES = "maritalStatuses";
+    public static final String TEMPLATES = "templates";
+    public static final String HOST = "host";
+    public static final String PORT = "port";
+    public static final String USER = "user";
+    public static final String PASS = "pass";
+    public static final String CURRENT_PAGE = "currentPage";
+    public static final String PREVIOUS_PAGE = "previousPage";
+    public static final String NEXT_PAGE = "nextPage";
+
 
 }
