@@ -19,28 +19,33 @@
 <div class="wrapper">
 
     <input type="hidden" name="id" value="${person.id}"/>
-    <input type="file" name="photoFile" id="photoFileID" style="display: none" accept="image/*,image/jpeg" onchange="onFileSelected(event)">
+    <input type="file" name="photoFile" id="photoFileID" style="display: none" accept="image/*,image/jpeg"
+           onchange="onFileSelected(event)">
     <input type="hidden" name="photoPath" value="${person.photoPath}"/>
 			<span style="position:static;">
 				<a href="#selectImageForm" id="#selectImage">
-                        <img id="photoPerson" src="${pageContext.request.contextPath}/images/${person.photoPath}"/>
+                    <img id="photoPerson" src="${pageContext.request.contextPath}/images/${person.photoPath}"/>
                 </a>
 			<p>
                 <label class="photo"><fmt:message key="surname"/> </label>
-                <input type="text" class="text" name="surname" id="surname" value="${requestScope.person.surname}" placeholder="<fmt:message key="enterSurname"/>"/>
+                <input type="text" class="text" name="surname" id="surname" value="${requestScope.person.surname}"
+                       placeholder="<fmt:message key="enterSurname"/>"/>
             </p>
 			<p>
                 <label class="photo"><fmt:message key="name"/></label>
-                <input type="text" class="text" name="name" id="name" value="${requestScope.person.name}" placeholder="<fmt:message key="enterName"/>"/>
+                <input type="text" class="text" name="name" id="name" value="${requestScope.person.name}"
+                       placeholder="<fmt:message key="enterName"/>"/>
             </p>
 			<p>
                 <label class="photo"> <fmt:message key="patronymic"/></label>
-                <input type="text" class="text" name="patronymic" id="patronymic" value="${requestScope.person.patronymic}" placeholder="<fmt:message key="enterPatronymic"/>"/>
+                <input type="text" class="text" name="patronymic" id="patronymic"
+                       value="${requestScope.person.patronymic}" placeholder="<fmt:message key="enterPatronymic"/>"/>
             </p>
 
 			<p>
                 <label class="photo"><fmt:message key="dateOfBirth"/></label>
-                <input type="text" class="text" name="dateOfBirth" id="dateOfBirth" value="${requestScope.person.dateOfBirth}" placeholder="<fmt:message key="enterDateOfBirth"/>)"/>
+                <input type="text" class="text" name="dateOfBirth" id="dateOfBirth"
+                       value="${requestScope.person.dateOfBirth}" placeholder="<fmt:message key="enterDateOfBirth"/>)"/>
             </p>
 			</span>
 
@@ -67,7 +72,8 @@
 
     <p>
         <label><fmt:message key="nationality"/></label>
-        <input type="text" class="text" name="nationality" id="nationality" value="${requestScope.person.nationality}" placeholder="<fmt:message key="enterNationality"/>"/>
+        <input type="text" class="text" name="nationality" id="nationality" value="${requestScope.person.nationality}"
+               placeholder="<fmt:message key="enterNationality"/>"/>
     </p>
 
     <p>
@@ -90,12 +96,14 @@
 
     <p>
         <label><fmt:message key="webSite"/></label>
-        <input type="text" class="text" name="webSite" id="webSite" value="${requestScope.person.webSite}" placeholder="<fmt:message key="enterWebSite"/>"/>
+        <input type="text" class="text" name="webSite" id="webSite" value="${requestScope.person.webSite}"
+               placeholder="<fmt:message key="enterWebSite"/>"/>
     </p>
 
     <p>
         <label><fmt:message key="email"/></label>
-        <input type="text" class="text" name="email" id="email" value="${requestScope.person.email}" placeholder="<fmt:message key="enterEmail"/>"/>
+        <input type="text" class="text" name="email" id="email" value="${requestScope.person.email}"
+               placeholder="<fmt:message key="enterEmail"/>"/>
     </p>
 
     <p>
@@ -117,7 +125,7 @@
 
     <p>
 
-    <h3 class="textFont"><fmt:message key="address"/> </h3>
+    <h3 class="textFont"><fmt:message key="address"/></h3>
     </p>
 
     <p>
@@ -140,27 +148,32 @@
 
     <p>
         <label class="live"><fmt:message key="city"/></label>
-        <input type="text" class="text" name="city" id="city" value="${requestScope.person.city}" placeholder="<fmt:message key="enterCity"/>"/>
+        <input type="text" class="text" name="city" id="city" value="${requestScope.person.city}"
+               placeholder="<fmt:message key="enterCity"/>"/>
     </p>
 
     <p>
         <label class="live"><fmt:message key="street"/></label>
-        <input type="text" class="text" name="street" id="street" value="${requestScope.person.street}" placeholder="<fmt:message key="enterStreet"/>"/>
+        <input type="text" class="text" name="street" id="street" value="${requestScope.person.street}"
+               placeholder="<fmt:message key="enterStreet"/>"/>
     </p>
 
     <p>
         <label class="live"><fmt:message key="home"/></label>
-        <input type="text" class="text" name="home" id="home" value="${requestScope.person.home}" placeholder="<fmt:message key="enterHome"/>"/>
+        <input type="text" class="text" name="home" id="home" value="${requestScope.person.home}"
+               placeholder="<fmt:message key="enterHome"/>"/>
     </p>
 
     <p>
         <label class="live"><fmt:message key="flat"/></label>
-        <input type="text" class="text" name="flat" id="flat" value="${requestScope.person.flat}" placeholder="<fmt:message key="enterFlat"/>"/>
+        <input type="text" class="text" name="flat" id="flat" value="${requestScope.person.flat}"
+               placeholder="<fmt:message key="enterFlat"/>"/>
     </p>
 
     <p>
         <label class="live"><fmt:message key="index"/></label>
-        <input type="text" class="text" name="index" id="index" value="${requestScope.person.index}" placeholder="<fmt:message key="enterIndex"/>"/>
+        <input type="text" class="text" name="index" id="index" value="${requestScope.person.index}"
+               placeholder="<fmt:message key="enterIndex"/>"/>
     </p>
 </div>
 <br/>
@@ -169,9 +182,10 @@
 <h2 align="center" class="textFont"><fmt:message key="phoneList"/></h2>
 
 <div align="right">
-    <button class="standard" type="button"><a href="#addContactForm" style="color:white"><fmt:message key="addPhone"/> </a>
+    <button class="standard" type="button"><a href="#addContactForm" style="color:white"><fmt:message
+            key="addPhone"/> </a>
     </button>
-    <button class="attention" type="button" onclick="deletePhone()"> <fmt:message key="deletePhone"/></button>
+    <button class="attention" type="button" onclick="deletePhone()"><fmt:message key="deletePhone"/></button>
 </div>
 
 
@@ -201,7 +215,9 @@
             <td>${phone.comment}</td>
             <td>
                 <button class="standard" type="button"><span><a href="#correctContactForm"
-                                                                onclick="openCorrectPhone(this)" style="color:white"><fmt:message key="correctPhone"/></a></span></button>
+                                                                onclick="openCorrectPhone(this)"
+                                                                style="color:white"><fmt:message
+                        key="correctPhone"/></a></span></button>
             </td>
         </tr>
     </c:forEach>
@@ -215,7 +231,8 @@
 <h2 align="center" class="textFont"><fmt:message key="fileList"/></h2>
 
 <div align="right">
-    <button class="standard" type="button"><a href="#addAccessionForm" style="color:white"><fmt:message key="addFile"/> </a>
+    <button class="standard" type="button"><a href="#addAccessionForm" style="color:white"><fmt:message
+            key="addFile"/> </a>
     </button>
     <button class="attention" type="button" id="deleteFile"><fmt:message key="deleteFile"/></button>
 </div>
@@ -246,7 +263,9 @@
             <td>${file.comment}</td>
             <td>
                 <button class="standard" type="button"><span><a href="#correctAccessionForm"
-                                                                onclick="openCorrectFile(this)" style="color:white"><fmt:message key="correctFile"/></a></span></button>
+                                                                onclick="openCorrectFile(this)"
+                                                                style="color:white"><fmt:message key="correctFile"/></a></span>
+                </button>
             </td>
         </tr>
     </c:forEach>
@@ -255,7 +274,7 @@
 
 <p>
     <label>&nbsp;</label>
-    <button type="submit" id="save" class="standard"> <fmt:message key="save"/></button>
+    <button type="submit" id="save" class="standard"><fmt:message key="save"/></button>
 </p>
 </form>
 <!-- Форма для модального окна добавить контакт -->
@@ -276,7 +295,12 @@
     </div>
     <div>
         <label><fmt:message key="phoneType"/></label>
-        <input type="text" id="phoneTypeIDAdd" value="" placeholder="<fmt:message key="enterPhoneType"/>"/>
+        <%--<input type="text" id="phoneTypeIDAdd" value="" placeholder="<fmt:message key="enterPhoneType"/>"/>--%>
+        <select id="phoneTypeSelectADD">
+            <option value="Мобильный" selected>Мобильный</option>
+            <option value="Домашний">Домашний</option>
+        </select>
+
     </div>
     <div>
         <label><fmt:message key="comment"/></label>
@@ -294,23 +318,32 @@
 <div class="popup">
     <div>
         <label><fmt:message key="countryCode"/></label>
-        <input type="text" id="countryCodeIDCorrect" name="countryCode" value="" placeholder="<fmt:message key="enterCountryCode"/>"/>
+        <input type="text" id="countryCodeIDCorrect" name="countryCode" value=""
+               placeholder="<fmt:message key="enterCountryCode"/>"/>
     </div>
     <div>
         <label><fmt:message key="operatorCode"/></label>
-        <input type="text" id="operatorCodeIDCorrect" name="operatorCode" value="" placeholder="<fmt:message key="enterOperatorCode"/>"/>
+        <input type="text" id="operatorCodeIDCorrect" name="operatorCode" value=""
+               placeholder="<fmt:message key="enterOperatorCode"/>"/>
     </div>
     <div>
         <label><fmt:message key="phoneNumber"/></label>
-        <input type="text" id="phoneNumberIDCorrect" name="phoneNumber" value="" placeholder="<fmt:message key="enterPhoneNumber"/>"/>
+        <input type="text" id="phoneNumberIDCorrect" name="phoneNumber" value=""
+               placeholder="<fmt:message key="enterPhoneNumber"/>"/>
     </div>
     <div>
         <label><fmt:message key="phoneType"/></label>
-        <input type="text" id="phoneTypeIDCorrect" name="phoneType" value="" placeholder="<fmt:message key="enterPhoneType"/>"/>
+        <%--<input type="text" id="phoneTypeIDCorrect" name="phoneType" value=""--%>
+               <%--placeholder="<fmt:message key="enterPhoneType"/>"/>--%>
+        <select id="phoneTypeSelect">
+            <option value="Мобильный">Мобильный</option>
+            <option value="Домашний">Домашний</option>
+        </select>
     </div>
     <div>
         <label><fmt:message key="comment"/></label>
-        <input type="text" id="commentPhoneIDCorrect" name="comment" value="" placeholder="<fmt:message key="enterComment"/>"/>
+        <input type="text" id="commentPhoneIDCorrect" name="comment" value=""
+               placeholder="<fmt:message key="enterComment"/>"/>
     </div>
     <input type="hidden" id="rowCountPhoneCorrect" value=""/>
     <button class="btn" id="saveCorrectPhone"><a href="#close"><fmt:message key="save"/> </a></button>
@@ -326,7 +359,7 @@
 <div class="popup">
     <div>
         <label><fmt:message key="fileName"/></label>
-        <button type="button" id="addFileButton"> <fmt:message key="addFile"/></button>
+        <button type="button" id="addFileButton"><fmt:message key="addFile"/></button>
     </div>
     <div>
         <label><fmt:message key="comment"/></label>
@@ -340,7 +373,7 @@
 
 <div class="popup">
     <div>
-        <label><fmt:message key="fileName" /></label>
+        <label><fmt:message key="fileName"/></label>
         <input type="text" id="fileNameIDCorrect" value="" placeholder="<fmt:message key="enterFileName"/>"/>
     </div>
     <div>
@@ -359,7 +392,7 @@
 
 <div class="popup">
     <p>
-        <button type="button" id="selectPhotoButton"> <fmt:message key="selectPhoto"/></button>
+        <button type="button" id="selectPhotoButton"><fmt:message key="selectPhoto"/></button>
     </p>
     <button class="btn" id="loadPhotoButton"><a href="#close"><fmt:message key="save"/> </a></button>
     <a class="close" href="#close"></a>

@@ -1,5 +1,6 @@
 package model.person;
 
+import logger.LoggerApplication;
 import model.ConnectToDB;
 import param.RequestParams;
 
@@ -57,16 +58,19 @@ public class PersonDAOImpl implements PersonDAO {
             homeInt = Integer.parseInt(home);
         } catch (NumberFormatException e) {
             homeInt = 0;
+            LoggerApplication.getInstance().setError("incorrect home number");
         }
         try {
             flatInt = Integer.parseInt(flat);
         } catch (NumberFormatException e) {
             flatInt = 0;
+            LoggerApplication.getInstance().setError("incorrect flat number");
         }
         try {
             ageInt = Integer.parseInt(age);
         } catch (NumberFormatException e) {
             ageInt = 0;
+            LoggerApplication.getInstance().setError("incorrect age");
         }
         int ageRangeType = -1;
         if (ageRange != null) {

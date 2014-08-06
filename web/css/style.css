@@ -445,6 +445,17 @@ input[type="text"]
     -o-border-radius: 2px;
     border-radius: 2px;
 }
+.popup select {
+    border: 1px solid;
+    border-color: #999 #ccc #ccc;
+    margin: 0;
+    width: 200px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    -ms-border-radius: 2px;
+    -o-border-radius: 2px;
+    border-radius: 2px;
+}
 
 .popup input[type="text"]:hover, .popup input[type="password"]:hover {
     border-color: #555 #888 #888;

@@ -15,7 +15,16 @@ function openCorrectPhone(obj) {
 
     var phoneTypeIDElement = document.getElementsByName('phoneTypeID');
     var phoneTypeID = phoneTypeIDElement[x].value;
-    document.getElementById('phoneTypeIDCorrect').value = phoneTypeID;
+    var phoneTypeSelect = document.getElementById('phoneTypeSelect');
+    if(phoneTypeID == 'Мобильный'){
+        phoneTypeSelect.selectedIndex = "0";
+    }
+    else{
+        phoneTypeSelect.selectedIndex = "1";
+    }
+//    var phoneTypeIDElement = document.getElementsByName('phoneTypeID');
+//    var phoneTypeID = phoneTypeIDElement[x].value;
+//    document.getElementById('phoneTypeIDCorrect').value = phoneTypeID;
 
     var commentIDElement = document.getElementsByName('commentPhoneID');
     var commentID = commentIDElement[x].value;
@@ -30,7 +39,9 @@ document.getElementById('saveCorrectPhone').onclick = function(){
     var countryCode = document.getElementById('countryCodeIDCorrect').value.trim();
     var operatorCode = document.getElementById('operatorCodeIDCorrect').value.trim();
     var phoneNumber = document.getElementById('phoneNumberIDCorrect').value.trim();
-    var phoneType = document.getElementById('phoneTypeIDCorrect').value.trim();
+//    var phoneType = document.getElementById('phoneTypeIDCorrect').value.trim();
+    var e = document.getElementById('phoneTypeSelect');
+    var phoneType = e.options[e.selectedIndex].value;
     var comment = document.getElementById('commentPhoneIDCorrect').value.trim();
     if(countryCode == "" || operatorCode == "" || phoneNumber == "" || phoneType == "" || !isInt(countryCode) ||
         !isInt(operatorCode) || !isInt(phoneNumber)){
@@ -55,7 +66,9 @@ document.getElementById('saveAddPhone').onclick = function(){
     var countryCode = document.getElementById('countryCodeIDAdd').value.trim();
     var operatorCode = document.getElementById('operatorCodeIDAdd').value.trim();
     var phoneNumber = document.getElementById('phoneNumberIDAdd').value.trim();
-    var phoneType = document.getElementById('phoneTypeIDAdd').value.trim();
+//    var phoneType = document.getElementById('phoneTypeIDAdd').value.trim();
+    var e = document.getElementById('phoneTypeSelectADD');
+    var phoneType = e.options[e.selectedIndex].value;
     var comment = document.getElementById('commentPhoneIDAdd').value.trim();
     if(countryCode == "" || operatorCode == "" || phoneNumber == "" || phoneType == "" || !isInt(countryCode) ||
         !isInt(operatorCode) || !isInt(phoneNumber)){
@@ -65,7 +78,7 @@ document.getElementById('saveAddPhone').onclick = function(){
     document.getElementById('countryCodeIDAdd').value = "";
     document.getElementById('operatorCodeIDAdd').value = "";
     document.getElementById('phoneNumberIDAdd').value = "";
-    document.getElementById('phoneTypeIDAdd').value = "";
+//    document.getElementById('phoneTypeIDAdd').value = "";
     document.getElementById('commentPhoneIDAdd').value = "";
 
     var table = document.getElementById('phoneTable');
