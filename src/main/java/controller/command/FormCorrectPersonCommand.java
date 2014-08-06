@@ -58,26 +58,6 @@ public class FormCorrectPersonCommand implements Command {
 //        String[] phoneType = request.getParameterValues(RequestParams.PHONE_TYPE_ID);
 //        String[] comment = request.getParameterValues(RequestParams.COMMENT_PHONE_ID);
         List phones = new ArrayList<Phone>();
-//        if (countryCode != null) {
-//            for (int i = 0; i < countryCode.length; i++) {
-//                Phone phone = new Phone();
-//                try {
-//                    phone.setId(Integer.parseInt(idPhone[i]));
-//                } catch (NullPointerException e) {
-//                    phone.setId(0);
-//                } catch (NumberFormatException e) {
-//                    phone.setId(0);
-//                }
-//                phone.setCountryCode(Integer.parseInt(countryCode[i]));
-//                phone.setOperatorCode(Integer.parseInt(operatorCode[i]));
-//                phone.setPhoneNumber(Integer.parseInt(phoneNumber[i]));
-//                phone.setPhoneType(phoneType[i]);
-//                phone.setComment(comment[i]);
-//                phones.add(phone);
-//            }
-//        }
-//        person.setPhone(phones);
-
         List files = new ArrayList<FilePerson>();
         if (!ServletFileUpload.isMultipartContent(request)) {
             LoggerApplication.getInstance().setError("Request does not contain upload data");
