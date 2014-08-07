@@ -1,5 +1,6 @@
 package model.maritalStatus;
 
+import logger.LoggerApplication;
 import model.ConnectToDB;
 
 import java.util.List;
@@ -19,6 +20,10 @@ public class MaritalStatusDAOImpl implements MaritalStatusDAO {
 
     @Override
     public List getMaritalStatus() {
-        return ConnectToDB.getInstance().getMaritalStatus();
+        List maritalStatuses = ConnectToDB.getInstance().getMaritalStatus();
+        if(maritalStatuses.size() == 0){
+            LoggerApplication.getInstance().setInfo("maritalStatuses is empty");
+        }
+        return maritalStatuses;
     }
 }

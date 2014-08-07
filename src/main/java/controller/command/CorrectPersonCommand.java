@@ -6,7 +6,6 @@ import model.country.CountryDAOImpl;
 import model.maritalStatus.MaritalStatusDAOImpl;
 import model.person.Person;
 import model.person.PersonDAOImpl;
-import model.template.TemplateDAOImpl;
 import param.RequestParams;
 
 import javax.servlet.http.HttpServletRequest;
@@ -36,23 +35,8 @@ public class CorrectPersonCommand implements Command {
             request.setAttribute(RequestParams.COMPANIES, companies);
             return RequestParams.CREATE_PERSON_JSP;
         } catch (NumberFormatException e){
-            LoggerApplication.getInstance().setError("request have incorrect ID");
-            int goToPage = 1;
-            List personForPage = PersonDAOImpl.getInstance().getPersons(goToPage);
-            request.setAttribute(RequestParams.PERSONS, personForPage);
-            request.setAttribute(RequestParams.CURRENT_PAGE, goToPage);
-            int preciousPage = PersonDAOImpl.getInstance().getPreviousPage(goToPage);
-            int nextPage = PersonDAOImpl.getInstance().getNextPage(goToPage);
-            if (preciousPage != 0) {
-                request.setAttribute(RequestParams.PREVIOUS_PAGE, preciousPage);
-            }
-            if (nextPage != 0) {
-                request.setAttribute(RequestParams.NEXT_PAGE, nextPage);
-            }
-
-            List templates = TemplateDAOImpl.getInstance().getTemplate();
-            request.setAttribute(RequestParams.TEMPLATES, templates);
-            return RequestParams.PERSON_LIST_JSP;
+            LoggerApplication.getInstance().setError("request have incorrect ID:" + e.getMessage());
+            return RequestParams.INDEX_JSP;
         }
 
     }

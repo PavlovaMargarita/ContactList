@@ -1,11 +1,16 @@
 package controller.command;
 
 import logger.LoggerApplication;
+import model.company.Company;
+import model.company.CompanyDAOImpl;
+import model.country.Country;
+import model.country.CountryDAOImpl;
 import model.filePerson.FilePerson;
+import model.maritalStatus.MaritalStatus;
+import model.maritalStatus.MaritalStatusDAOImpl;
 import model.person.Person;
 import model.person.PersonDAOImpl;
 import model.phone.Phone;
-import model.template.TemplateDAOImpl;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
@@ -18,6 +23,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by Margarita on 23.07.2014.
@@ -113,7 +120,11 @@ public class FormCorrectPersonCommand implements Command {
                         if (value.equals("")) {
                             person.setId(0);
                         } else {
-                            person.setId(Integer.parseInt(value));
+                            try {
+                                person.setId(Integer.parseInt(value));
+                            }catch (NumberFormatException e){
+                                LoggerApplication.getInstance().setError("request have incorrect ID:" + e.getMessage());
+                            }
                         }
 
                     }
@@ -132,28 +143,101 @@ public class FormCorrectPersonCommand implements Command {
                         person.setPatronymic(value);
                     }
                     if (fieldName.equals(RequestParams.DATE_OF_BIRTH)) {
-                        person.setDateOfBirth(value);
+                        Pattern pattern = Pattern.compile("^(0?[1-9]|[12][0-9]|3[01])[\\-](0?[1-9]|1[012])[\\-]\\d{4}$");
+                        Matcher matcher = pattern.matcher(value);
+                        if (matcher.matches()){
+                            person.setDateOfBirth(value);
+                        } else{
+                            person.setWebSite("01-01-2000");
+                            LoggerApplication.getInstance().setError("request have incorrect DATE OF BIRTH");
+                        }
                     }
                     if (fieldName.equals(RequestParams.SEX)) {
-                        person.setSex(value);
+                        if(value.equals("m") || value.equals("f")) {
+                            person.setSex(value);
+                        }else{
+                            person.setSex("m");
+                            LoggerApplication.getInstance().setError("request have incorrect SEX");
+                        }
                     }
                     if (fieldName.equals(RequestParams.NATIONALITY)) {
                         person.setNationality(value);
                     }
                     if (fieldName.equals(RequestParams.MARITAL_STATUS)) {
-                        person.setMaritalStatus(value);
+                        List <MaritalStatus> maritalStatusFull = MaritalStatusDAOImpl.getInstance().getMaritalStatus();
+                        List maritalStatusID = new ArrayList();
+                        for(MaritalStatus maritalStatus:maritalStatusFull){
+                            maritalStatusID.add(maritalStatus.getId());
+                        }
+                        if(maritalStatusID.contains(Integer.parseInt(value))) {
+                            person.setMaritalStatus(value);
+                        } else{
+                            if(maritalStatusID.size() > 1) {
+                                person.setMaritalStatus((String)maritalStatusID.get(0));
+                            }
+                            else{
+                                person.setMaritalStatus("0");
+                            }
+                            LoggerApplication.getInstance().setError("request have incorrect MARITAL STATUS");
+                        }
                     }
                     if (fieldName.equals(RequestParams.WEB_SITE)) {
-                        person.setWebSite(value);
+                        Pattern pattern = Pattern.compile("(ftp|http|https):\\/\\/(\\w+:{0,1}\\w*@)?(\\S+)(:[0-9]+)?(\\/|\\/([\\w#!:.?+=&%@!\\-\\/]))?");
+                        Matcher matcher = pattern.matcher(value);
+                        if (matcher.matches()){
+                            person.setWebSite(value);
+                        } else{
+                            person.setWebSite("http://www.google.com");
+                            LoggerApplication.getInstance().setError("request have incorrect WEB SITE");
+                        }
+
                     }
                     if (fieldName.equals(RequestParams.EMAIL)) {
-                        person.setEmail(value);
+                        Pattern pattern = Pattern.compile("^[_A-Za-z0-9-\\\\+]+(\\\\.[_A-Za-z0-9-]+)*\n" +
+                                "      @[A-Za-z0-9-]+(\\\\.[A-Za-z0-9]+)*(\\\\.[A-Za-z]{2,})$");
+                        Matcher matcher = pattern.matcher(value);
+                        if (matcher.matches()){
+                            person.setEmail(value);
+                        } else{
+                            person.setEmail("test@test.test");
+                            LoggerApplication.getInstance().setError("request have incorrect EMAIL");
+                        }
                     }
                     if (fieldName.equals(RequestParams.COMPANY)) {
-                        person.setCompany(value);
+                        List <Company>companyFull = CompanyDAOImpl.getInstance().getCompanies();
+                        List companyID = new ArrayList();
+                        for(Company company:companyFull){
+                            companyID.add(company.getId());
+                        }
+                        if(companyID.contains(Integer.parseInt(value))) {
+                            person.setCompany(value);
+                        } else{
+                            if(companyID.size() > 1) {
+                                person.setCompany((String) companyID.get(0));
+                            }
+                            else{
+                                person.setCompany("0");
+                            }
+                            LoggerApplication.getInstance().setError("request have incorrect COMPANY");
+                        }
                     }
                     if (fieldName.equals(RequestParams.COUNTRY)) {
-                        person.setCountry(value);
+                        List <Country> countryFull = CountryDAOImpl.getInstance().getCountries();
+                        List countryID = new ArrayList();
+                        for(Country country: countryFull){
+                            countryID.add(country.getId());
+                        }
+                        if(countryID.contains(Integer.parseInt(value))) {
+                            person.setCountry(value);
+                        } else{
+                            if(countryID.size() > 1) {
+                                person.setCountry((String)countryID.get(0));
+                            }
+                            else{
+                                person.setCountry("0");
+                            }
+                            LoggerApplication.getInstance().setError("request have incorrect COUNTRY");
+                        }
                     }
                     if (fieldName.equals(RequestParams.CITY)) {
                         person.setCity(value);
@@ -162,30 +246,42 @@ public class FormCorrectPersonCommand implements Command {
                         person.setStreet(value);
                     }
                     if (fieldName.equals(RequestParams.HOME)) {
-                        person.setHome(Integer.parseInt(value));
+                        try{
+                            person.setHome(Integer.parseInt(value));
+                        } catch (NumberFormatException e){
+                            LoggerApplication.getInstance().setError("request have incorrect HOME:" + e.getMessage());
+                        }
                     }
                     if (fieldName.equals(RequestParams.FLAT)) {
-                        person.setFlat(Integer.parseInt(value));
+                        try {
+                            person.setFlat(Integer.parseInt(value));
+                        }catch (NumberFormatException e){
+                            LoggerApplication.getInstance().setError("request have incorrect FLAT:" + e.getMessage());
+                        }
                     }
                     if (fieldName.equals(RequestParams.INDEX)) {
                         person.setIndex(value);
                     }
                     if (fieldName.equals(RequestParams.COUNTY_CODE_ID)) {
                         Phone phone = new Phone();
-                        phone.setCountryCode(Integer.parseInt(value));
-                        item = (FileItem) iter.next();
-                        value = item.getString("UTF-8").trim();
-                        phone.setOperatorCode(Integer.parseInt(value));
-                        item = (FileItem) iter.next();
-                        value = item.getString("UTF-8").trim();
-                        phone.setPhoneNumber(Integer.parseInt(value));
-                        item = (FileItem) iter.next();
-                        value = item.getString("UTF-8").trim();
-                        phone.setPhoneType(value);
-                        item = (FileItem) iter.next();
-                        value = item.getString("UTF-8").trim();
-                        phone.setComment(value);
-                        phones.add(phone);
+                        try {
+                            phone.setCountryCode(Integer.parseInt(value));
+                            item = (FileItem) iter.next();
+                            value = item.getString("UTF-8").trim();
+                            phone.setOperatorCode(Integer.parseInt(value));
+                            item = (FileItem) iter.next();
+                            value = item.getString("UTF-8").trim();
+                            phone.setPhoneNumber(Integer.parseInt(value));
+                            item = (FileItem) iter.next();
+                            value = item.getString("UTF-8").trim();
+                            phone.setPhoneType(value);
+                            item = (FileItem) iter.next();
+                            value = item.getString("UTF-8").trim();
+                            phone.setComment(value);
+                            phones.add(phone);
+                        } catch (NumberFormatException e){
+                            LoggerApplication.getInstance().setError("request have incorrect PHONE:" + e.getMessage());
+                        }
                     }
                     if (fieldName.equals(RequestParams.FILE_HASH)) {
                         FilePerson filePerson = new FilePerson();
@@ -235,10 +331,10 @@ public class FormCorrectPersonCommand implements Command {
                     message.append(", ");
                     message.append(person.getEmail());
                     message.append("\r\n");
-                    String host = "smtp.gmail.com";
-                    String port = "587";
-                    final String user = "xomrita@gmail.com";
-                    final String pass = "pavlovamarisha";
+                    String host = RequestParams.bundle.getString("useHost");
+                    String port = RequestParams.bundle.getString("usePort");
+                    final String user = RequestParams.bundle.getString("adminLog");
+                    final String pass = RequestParams.bundle.getString("adminPas");
                     Properties properties = new Properties();
                     properties.put(RequestParams.bundle.getString("hostMail"), host);
                     properties.put(RequestParams.bundle.getString("portMail"), port);
@@ -255,7 +351,7 @@ public class FormCorrectPersonCommand implements Command {
                     Message msg = new MimeMessage(session);
 
                     msg.setFrom(new InternetAddress(user));
-                    InternetAddress[] toAddresses = {new InternetAddress("xomrita@gmail.com")};
+                    InternetAddress[] toAddresses = {new InternetAddress(RequestParams.bundle.getString("adminLog"))};
                     msg.setRecipients(Message.RecipientType.TO, toAddresses);
                     msg.setSubject("Birthday");
                     msg.setSentDate(new Date());
@@ -268,22 +364,7 @@ public class FormCorrectPersonCommand implements Command {
         } catch (Exception ex) {
             LoggerApplication.getInstance().setError(ex.getMessage());
         } finally {
-            int goToPage = 1;
-            List personForPage = PersonDAOImpl.getInstance().getPersons(goToPage);
-            request.setAttribute(RequestParams.PERSONS, personForPage);
-            request.setAttribute(RequestParams.CURRENT_PAGE, goToPage);
-            int preciousPage = PersonDAOImpl.getInstance().getPreviousPage(goToPage);
-            int nextPage = PersonDAOImpl.getInstance().getNextPage(goToPage);
-            if (preciousPage != 0) {
-                request.setAttribute(RequestParams.PREVIOUS_PAGE, preciousPage);
-            }
-            if (nextPage != 0) {
-                request.setAttribute(RequestParams.NEXT_PAGE, nextPage);
-            }
-
-            List templates = TemplateDAOImpl.getInstance().getTemplate();
-            request.setAttribute(RequestParams.TEMPLATES, templates);
-            return RequestParams.PERSON_LIST_JSP;
+            return RequestParams.INDEX_JSP;
         }
 
 

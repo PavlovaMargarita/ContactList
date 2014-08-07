@@ -45,7 +45,7 @@
 			<p>
                 <label class="photo"><fmt:message key="dateOfBirth"/></label>
                 <input type="text" class="text" name="dateOfBirth" id="dateOfBirth"
-                       value="${requestScope.person.dateOfBirth}" placeholder="<fmt:message key="enterDateOfBirth"/>)"/>
+                       value="${requestScope.person.dateOfBirth}" placeholder="<fmt:message key="enterDateOfBirth"/>"/>
             </p>
 			</span>
 
@@ -398,6 +398,6 @@
     <a class="close" href="#close"></a>
 </div>
 
-<script type="text/javascript" src="js/jsForCorrectPerson.js"></script>
+<script type="text/javascript" src="js/jsForCreatePerson.js"></script>
 </body>
 </html>

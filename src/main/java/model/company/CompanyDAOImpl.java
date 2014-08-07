@@ -1,5 +1,6 @@
 package model.company;
 
+import logger.LoggerApplication;
 import model.ConnectToDB;
 
 import java.util.List;
@@ -19,6 +20,10 @@ public class CompanyDAOImpl implements CompanyDAO {
 
     @Override
     public List getCompanies() {
-        return ConnectToDB.getInstance().getCompanies();
+        List companies = ConnectToDB.getInstance().getCompanies();
+        if(companies.size() == 0){
+            LoggerApplication.getInstance().setInfo("companies is empty");
+        }
+        return companies;
     }
 }

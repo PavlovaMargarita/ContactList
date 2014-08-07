@@ -1,5 +1,6 @@
 package model.country;
 
+import logger.LoggerApplication;
 import model.ConnectToDB;
 
 import java.util.List;
@@ -19,6 +20,10 @@ public class CountryDAOImpl implements CountryDAO {
 
     @Override
     public List getCountries() {
-        return ConnectToDB.getInstance().getCountries();
+        List countries = ConnectToDB.getInstance().getCountries();
+        if(countries.size() == 0){
+            LoggerApplication.getInstance().setInfo("countries is empty");
+        }
+        return countries;
     }
 }

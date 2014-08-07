@@ -22,10 +22,6 @@ function openCorrectPhone(obj) {
     else{
         phoneTypeSelect.selectedIndex = "1";
     }
-//    var phoneTypeIDElement = document.getElementsByName('phoneTypeID');
-//    var phoneTypeID = phoneTypeIDElement[x].value;
-//    document.getElementById('phoneTypeIDCorrect').value = phoneTypeID;
-
     var commentIDElement = document.getElementsByName('commentPhoneID');
     var commentID = commentIDElement[x].value;
     document.getElementById('commentPhoneIDCorrect').value = commentID;
@@ -39,7 +35,6 @@ document.getElementById('saveCorrectPhone').onclick = function(){
     var countryCode = document.getElementById('countryCodeIDCorrect').value.trim();
     var operatorCode = document.getElementById('operatorCodeIDCorrect').value.trim();
     var phoneNumber = document.getElementById('phoneNumberIDCorrect').value.trim();
-//    var phoneType = document.getElementById('phoneTypeIDCorrect').value.trim();
     var e = document.getElementById('phoneTypeSelect');
     var phoneType = e.options[e.selectedIndex].value;
     var comment = document.getElementById('commentPhoneIDCorrect').value.trim();
@@ -66,7 +61,6 @@ document.getElementById('saveAddPhone').onclick = function(){
     var countryCode = document.getElementById('countryCodeIDAdd').value.trim();
     var operatorCode = document.getElementById('operatorCodeIDAdd').value.trim();
     var phoneNumber = document.getElementById('phoneNumberIDAdd').value.trim();
-//    var phoneType = document.getElementById('phoneTypeIDAdd').value.trim();
     var e = document.getElementById('phoneTypeSelectADD');
     var phoneType = e.options[e.selectedIndex].value;
     var comment = document.getElementById('commentPhoneIDAdd').value.trim();
@@ -78,7 +72,6 @@ document.getElementById('saveAddPhone').onclick = function(){
     document.getElementById('countryCodeIDAdd').value = "";
     document.getElementById('operatorCodeIDAdd').value = "";
     document.getElementById('phoneNumberIDAdd').value = "";
-//    document.getElementById('phoneTypeIDAdd').value = "";
     document.getElementById('commentPhoneIDAdd').value = "";
 
     var table = document.getElementById('phoneTable');
@@ -292,7 +285,15 @@ document.getElementById('save').onclick = function(){
         document.getElementById('index').value.trim() != "" &&
         regEmail.test(document.getElementById('email').value) &&
         ((document.getElementById('webSite').value.trim() == "") ||
-         (document.getElementById('webSite').value.trim() != "" && regWeb.test(document.getElementById('webSite').value)))
+         (document.getElementById('webSite').value.trim() != "" && regWeb.test(document.getElementById('webSite').value))) &&
+        testName(document.getElementById('surname').value) &&
+        testName(document.getElementById('name').value) &&
+        testPatronymic(document.getElementById('patronymic').value) &&
+        testPatronymic(document.getElementById('nationality').value) &&
+        testName(document.getElementById('city').value) &&
+        testStreet(document.getElementById('street').value) &&
+        testStreet(document.getElementById('index').value);
+
 }
 
 document.getElementById('email').onkeyup = function(){
@@ -469,4 +470,89 @@ document.getElementById('loadPhotoButton').onclick = function(){
     }
     var imgtag = document.getElementById("photoPerson");
     imgtag.src = resultPhoto;
+}
+
+function testName(val){
+    var re = /^[A-zА-яЁё -]+$/;
+    return re.test(val);
+}
+function testPatronymic(val){
+    var re = /^[A-zА-яЁё]+$/;
+    return re.test(val);
+}
+function testStreet(val){
+    var re = /^[A-zА-яЁё0-9 -]+$/;
+    return re.test(val);
+}
+
+document.getElementById('surname').onkeyup = function(){
+
+    var val = document.getElementById('surname').value;
+    if(testName(val)){
+        document.getElementById('surname').style.borderColor = "#ccc";
+    }
+    else{
+        document.getElementById('surname').style.borderColor = "red";
+    }
+}
+
+document.getElementById('name').onkeyup = function(){
+    var val = document.getElementById('name').value;
+    if(testName(val)){
+        document.getElementById('name').style.borderColor = "#ccc";
+    }
+    else{
+        document.getElementById('name').style.borderColor = "red";
+    }
+}
+
+document.getElementById('patronymic').onkeyup = function(){
+
+    var val = document.getElementById('patronymic').value;
+    if(testPatronymic(val)){
+        document.getElementById('patronymic').style.borderColor = "#ccc";
+    }
+    else{
+        document.getElementById('patronymic').style.borderColor = "red";
+    }
+}
+
+document.getElementById('nationality').onkeyup = function(){
+    var val = document.getElementById('nationality').value;
+    if(testPatronymic(val)){
+        document.getElementById('nationality').style.borderColor = "#ccc";
+    }
+    else{
+        document.getElementById('nationality').style.borderColor = "red";
+    }
+}
+
+document.getElementById('city').onkeyup = function(){
+    var val = document.getElementById('city').value;
+    if(testName(val)){
+        document.getElementById('city').style.borderColor = "#ccc";
+    }
+    else{
+        document.getElementById('city').style.borderColor = "red";
+    }
+}
+
+document.getElementById('street').onkeyup = function(){
+    var val = document.getElementById('street').value;
+    if(testStreet(val)){
+        document.getElementById('street').style.borderColor = "#ccc";
+    }
+    else{
+        document.getElementById('street').style.borderColor = "red";
+    }
+}
+
+document.getElementById('index').onkeyup = function(){
+    var val = document.getElementById('index').value;
+    if(testStreet(val)){
+        document.getElementById('index').style.borderColor = "#ccc";
+    }
+    else{
+        document.getElementById('index').style.borderColor = "red";
+    }
 }

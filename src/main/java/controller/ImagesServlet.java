@@ -18,27 +18,15 @@ public class ImagesServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException
     {
-//        String filename = URLDecoder.decode(request.getPathInfo().substring(1), "UTF-8");
-//        File file;
-//        if(!filename.equals("")) {
-//            file = new File("C:\\contactListImageFolder\\images", filename);
-//        }
-//        else{
-//            file = new File("C:\\contactListImageFolder\\images", "silhouette.jpg");
-//        }
-////        response.setHeader("Content-Type", getServletContext().getMimetype(filename));
-//        response.setHeader("Content-Length", String.valueOf(file.length()));
-//        response.setHeader("Content-Disposition", "inline; filename=\"" + file.getName() + "\"");
-//        Files.copy(file.toPath(), response.getOutputStream());
         String filename = URLDecoder.decode(request.getPathInfo().substring(1), "UTF-8");
         File file;
         if(!filename.equals("")) {
             file = new File(RequestParams.bundle.getString("uploadPath"), filename);
         }
         else{
-            file = new File(RequestParams.bundle.getString("uploadPath"), RequestParams.bundle.getString("standardImage"));
+            String homeDir = request.getSession().getServletContext().getRealPath("/");
+            file = new File(homeDir, RequestParams.bundle.getString("standardImage"));
         }
-//        response.setHeader("Content-Type", getServletContext().getMimetype(filename));
         response.setHeader("Content-Length", String.valueOf(file.length()));
         response.setHeader("Content-Disposition", "inline; filename=\"" + file.getName() + "\"");
         Files.copy(file.toPath(), response.getOutputStream());

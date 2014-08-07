@@ -15,9 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
-/**
- * Created by Margarita on 21.07.2014.
- */
 public class ConnectToDB {
     private static ConnectToDB ourInstance = new ConnectToDB();
 

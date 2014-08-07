@@ -30,9 +30,10 @@ public class RequestParams {
     public static final String PHOTO_PATH = "photoPath";
     public static final String PHOTO_FILE = "photoFile";
     public static final String CITY_INDEX = "cityIndex";
-    public static final String PERSON_LIST_JSP = "PersonList.jsp";
-    public static final String CREATE_PERSON_JSP = "CreatePerson.jsp";
-    public static final String SEARCH_PERSON_JSP = "SearchPerson.jsp";
+    public static final String PERSON_LIST_JSP = "personList.jsp";
+    public static final String CREATE_PERSON_JSP = "createPerson.jsp";
+    public static final String SEARCH_PERSON_JSP = "searchPerson.jsp";
+    public static final String INDEX_JSP = "index.jsp";
     public static final String CREATE = "create";
     public static final String CORRECT = "correct";
     public static final String CORRECT_PERSON = "correctPerson";

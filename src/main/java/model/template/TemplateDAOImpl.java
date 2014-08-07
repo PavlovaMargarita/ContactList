@@ -1,5 +1,6 @@
 package model.template;
 
+import logger.LoggerApplication;
 import model.ConnectToDB;
 import java.util.List;
 
@@ -20,6 +21,10 @@ public class TemplateDAOImpl implements TemplateDAO {
 
     @Override
     public List getTemplate() {
-        return ConnectToDB.getInstance().getTemplates();
+        List templates = ConnectToDB.getInstance().getTemplates();
+        if(templates.size() == 0){
+            LoggerApplication.getInstance().setInfo("templates is empty");
+        }
+        return templates;
     }
 }

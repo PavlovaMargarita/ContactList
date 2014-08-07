@@ -1,0 +1,22 @@
+Values for changes
+
+property.properties:
+
+=====================DATABASE=====================
+urlDB; (for example jdbc:mysql://localhost:3306/contactlist )
+urlDriver; (for example com.mysql.jdbc.Driver )
+userDB; (username)
+passwordDB; (password)
+
+==============FOLDER FOR LOAD IMAGE===============
+uploadPath; (for example C:\contactListImageFolder\images )
+
+=======================MAIL=======================
+adminLog; (email address)
+adminPas; (email password)
+
+
+log4j.properties:
+
+================FILE FOR WRITE LOG================
+log4j.appender.fileAppender.File; (for example C:\\loggerContactList.log )

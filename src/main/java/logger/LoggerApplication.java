@@ -1,6 +1,7 @@
 package logger;
 
 import org.apache.log4j.PropertyConfigurator;
+import param.RequestParams;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.http.HttpServlet;
@@ -22,7 +23,7 @@ public class LoggerApplication {
     }
     public void setConfig(ServletConfig config){
         String homeDir = config.getServletContext().getRealPath("/");
-        File propertiesFile = new File(homeDir, "WEB-INF/log4j.properties");
+        File propertiesFile = new File(homeDir, RequestParams.bundle.getString("loggerPath"));
         PropertyConfigurator.configure(propertiesFile.toString());
     }
     public void setInfo(String message){

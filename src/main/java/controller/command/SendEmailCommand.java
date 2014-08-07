@@ -3,7 +3,6 @@ package controller.command;
 import logger.LoggerApplication;
 import model.StringTemplateInsert;
 import model.person.PersonDAOImpl;
-import model.template.TemplateDAOImpl;
 import param.RequestParams;
 
 import javax.mail.*;
@@ -45,10 +44,14 @@ public class SendEmailCommand implements Command {
                 template = stringTokenizer.nextToken();
             }
 
-            String host = request.getSession().getServletContext().getInitParameter(RequestParams.HOST);
-            String port = request.getSession().getServletContext().getInitParameter(RequestParams.PORT);
-            final String user = request.getSession().getServletContext().getInitParameter(RequestParams.USER);
-            final String pass = request.getSession().getServletContext().getInitParameter(RequestParams.PASS);
+//            String host = request.getSession().getServletContext().getInitParameter(RequestParams.HOST);
+            String host = RequestParams.bundle.getString("useHost");
+//            String port = request.getSession().getServletContext().getInitParameter(RequestParams.PORT);
+            String port = RequestParams.bundle.getString("usePort");
+//            final String user = request.getSession().getServletContext().getInitParameter(RequestParams.USER);
+            final String user = RequestParams.bundle.getString("adminLog");
+//            final String pass = request.getSession().getServletContext().getInitParameter(RequestParams.PASS);
+            final String pass = RequestParams.bundle.getString("adminPas");
             Properties properties = new Properties();
             properties.put(RequestParams.bundle.getString("hostMail"), host);
             properties.put(RequestParams.bundle.getString("portMail"), port);
@@ -88,22 +91,7 @@ public class SendEmailCommand implements Command {
         } catch (MessagingException e) {
             LoggerApplication.getInstance().setError(e.getMessage());
         }finally {
-            int goToPage = 1;
-            List personForPage = PersonDAOImpl.getInstance().getPersons(goToPage);
-            request.setAttribute(RequestParams.PERSONS, personForPage);
-            request.setAttribute(RequestParams.CURRENT_PAGE, goToPage);
-            int preciousPage = PersonDAOImpl.getInstance().getPreviousPage(goToPage);
-            int nextPage = PersonDAOImpl.getInstance().getNextPage(goToPage);
-            if (preciousPage != 0) {
-                request.setAttribute(RequestParams.PREVIOUS_PAGE, preciousPage);
-            }
-            if (nextPage != 0) {
-                request.setAttribute(RequestParams.NEXT_PAGE, nextPage);
-            }
-
-            List templates = TemplateDAOImpl.getInstance().getTemplate();
-            request.setAttribute(RequestParams.TEMPLATES, templates);
-            return RequestParams.PERSON_LIST_JSP;
+            return RequestParams.INDEX_JSP;
         }
 
 
