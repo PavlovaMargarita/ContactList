@@ -35,7 +35,7 @@ public class MyTimer extends TimerTask {
         String host = "smtp.gmail.com";
         String port = "587";
         final String user = "xomrita@gmail.com";
-        final String pass = "pavlovamarisha";
+        final String pass = "pavlovamarisha1231507";
         Properties properties = new Properties();
         properties.put(RequestParams.bundle.getString("hostMail"), host);
         properties.put(RequestParams.bundle.getString("portMail"), port);

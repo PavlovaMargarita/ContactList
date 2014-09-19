@@ -334,7 +334,7 @@
     <div>
         <label><fmt:message key="phoneType"/></label>
         <%--<input type="text" id="phoneTypeIDCorrect" name="phoneType" value=""--%>
-               <%--placeholder="<fmt:message key="enterPhoneType"/>"/>--%>
+        <%--placeholder="<fmt:message key="enterPhoneType"/>"/>--%>
         <select id="phoneTypeSelect">
             <option value="Мобильный">Мобильный</option>
             <option value="Домашний">Домашний</option>

@@ -11,11 +11,6 @@ passwordDB; (password)
 ==============FOLDER FOR LOAD IMAGE===============
 uploadPath; (for example C:\contactListImageFolder\images )
 
-=======================MAIL=======================
-adminLog; (email address)
-adminPas; (email password)
-
-
 log4j.properties:
 
 ================FILE FOR WRITE LOG================
